@@ -6,10 +6,12 @@
 Supports [Terralith](https://www.curseforge.com/minecraft/mc-mods/terralith) datapack's reserved biome names
 
 # Placeholders
-`%playerbiomes_biome%`: Gives the namespace of the biome (for now, without the `minecraft:` part or the plugin/datapack name)
+`%playerbiomes_biome%`: 
+Gives the namespace of the biome (for now, without the `minecraft:` part or the plugin/datapack name)
 Examples: `minecraft:jungle` becomes "jungle", `terralith:ominous_grove` becomes "ominous_grove", `terralith:zreserved/116/orchid_swamp` becomes "zreserved/116/orchid_swamp"
 
-`%playerbiomes_biome_capitalized%` (Credit: Si6gma#0828): Gives the Capitalized name of the biome (Removed the `zreserved/number/` parts from Terralith biomes)
+`%playerbiomes_biome_capitalized%` (Credit: Si6gma#0828): 
+Gives the Capitalized name of the biome (Removed the `zreserved/number/` parts from Terralith biomes)
 Examples: `minecraft:jungle` becomes "Jungle", `terralith:ominous_grove` becomes "Ominous Grove", `terralith:zreserved/116/orchid_swamp` becomes "Orchid Swamp"
 
 Currently DOESNT support PlaceholderAPI reloads! Will be fixed soon
