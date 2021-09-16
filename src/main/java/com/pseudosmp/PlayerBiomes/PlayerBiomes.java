@@ -45,6 +45,6 @@ public class PlayerBiomes extends JavaPlugin  {
     }
     @Override
     public void onDisable(){
-        System.out.println("Disabling PlayerBiomes...");
+        System.out.println("Goodbye!");
     }
 }
