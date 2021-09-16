@@ -8,7 +8,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class PlayerBiomes extends JavaPlugin  {
     @Override
     public void onEnable() {
-        System.out.println("Disabling PlayerBiomes...");
         JeffLib.init(this);
         PlaceholderAPIUtils.register("biome", player -> {
             if(player.isOnline()) {
