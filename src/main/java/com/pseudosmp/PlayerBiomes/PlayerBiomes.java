@@ -32,11 +32,13 @@ public class PlayerBiomes extends JavaPlugin  {
 
                 // Capitalizes first letter in both words.
                 int findUnderScore = biome.indexOf("_");
-                biome = biome.substring(0, 1).toUpperCase() + biome.substring(1, findUnderScore)
-                        + biome.substring(findUnderScore, findUnderScore + 2).toUpperCase()
-                        + biome.substring(findUnderScore + 2);
-                biome = biome.replace("_", " ");
-
+                if (findUnderScore != -1) {
+                    biome = biome.substring(0, 1).toUpperCase() + biome.substring(1, findUnderScore)
+                            + biome.substring(findUnderScore, findUnderScore + 2).toUpperCase()
+                            + biome.substring(findUnderScore + 2);
+                    biome = biome.replace("_", " ");
+                } else {
+                }
                 return biome;
             } else {
                 return null;
