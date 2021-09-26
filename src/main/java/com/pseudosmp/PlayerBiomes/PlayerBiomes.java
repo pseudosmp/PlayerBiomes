@@ -16,30 +16,31 @@ public class PlayerBiomes extends JavaPlugin  {
                 return null;
             }
         });
+        // Credit to Si6gma#0828
         PlaceholderAPIUtils.register("biome_capitalized", player -> {
             if (player.isOnline()) {
                 String biome = BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation()).getKey();
-                int findSlash = biome.indexOf('/');
+                String capitalizeWord = "";
 
-                // Checks if it has a '/', if yes it removes everything before it.
-                // For Terralith reserved biomes, you dont need to worry about this unless any one of your biome names has a forward slash
+                biome = biome.replaceAll("_", " "); // Makes _ into spaces
+                int findSlash = biome.indexOf("/"); // Finds "/" to remove everything before it. (for terralith reserved biomes)
+
                 if (findSlash != -1) {
-                    biome = biome.substring(findSlash + 1);
-                    findSlash = biome.indexOf('/');
-                    biome = biome.substring(findSlash + 1);
-                } else {
+                    do {
+                        biome = biome.substring(findSlash + 1); // Removes "/" and everything before it. (for terralith reserved biomes)
+                        findSlash = biome.indexOf("/"); // Finds more "/". (for terralith reserved biomes)
+                    } while (findSlash != -1); // Untill no "/" remain this loop will continue. (for terralith reserved biomes)
                 }
 
-                // Capitalizes first letter in both words.
-                int findUnderScore = biome.indexOf("_");
-                if (findUnderScore != -1) {
-                    biome = biome.substring(0, 1).toUpperCase() + biome.substring(1, findUnderScore)
-                            + biome.substring(findUnderScore, findUnderScore + 2).toUpperCase()
-                            + biome.substring(findUnderScore + 2);
-                    biome = biome.replace("_", " ");
-                } else {
+                String words[] = biome.split("\\s"); // Makes Biome string into arrays spliting betwee ever space ("\\s").
+
+                // Following Loop Capitalizes All Words In Sentence
+                for (String w : words) {
+                    String first = w.substring(0, 1);
+                    String afterfirst = w.substring(1);
+                    capitalizeWord += first.toUpperCase() + afterfirst + " ";
                 }
-                return biome;
+                return capitalizeWord.trim();
             } else {
                 return null;
             }
