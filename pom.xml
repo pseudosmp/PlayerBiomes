@@ -41,7 +41,7 @@
         </repository>
         <repository>
             <id>jeff-media-gbr</id>
-            <url>https://repo.jeff-media.de/maven2</url>
+            <url>https://hub.jeff-media.com/nexus/repository/jeff-media-public/</url>
         </repository>
         <repository>
             <id>placeholderapi</id>
@@ -89,7 +89,7 @@
                     <relocations>
                         <relocation>
                             <pattern>de.jeff_media.jefflib</pattern>
-                            <shadedPattern>com.pseudosmp.jefflib</shadedPattern>
+                            <shadedPattern>com.pseudosmp.PlayerBiomes.jefflib</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
