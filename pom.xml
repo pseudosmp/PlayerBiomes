@@ -89,7 +89,7 @@
                     <relocations>
                         <relocation>
                             <pattern>de.jeff_media.jefflib</pattern>
-                            <shadedPattern>com.pseudosmp.PlayerBiomes.jefflib</shadedPattern>
+                            <shadedPattern>com.pseudosmp.jefflib</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
