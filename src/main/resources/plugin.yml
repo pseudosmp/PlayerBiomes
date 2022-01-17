@@ -1,6 +1,6 @@
 name: PlayerBiomes
 main: com.pseudosmp.PlayerBiomes.PlayerBiomes
-version: 1.0.2
+version: 2.0.0
 description: Plugin for Getting player biome using NMS through a PlaceholderAPI placeholder
 api-version: "1.13"
 depend:
