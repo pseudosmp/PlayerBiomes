@@ -17,7 +17,7 @@ public class PlayerBiomes extends JavaPlugin {
             }
         });
         // Credit to Si6gma#0828 for teaching me!
-        PlaceholderAPIUtils.register("biome_capitalized", player -> {
+        PlaceholderAPIUtils.register("biome_formatted", player -> {
             if (player.isOnline()) {
                 String biome = BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation()).getKey();
                 String capitalizeWord = "";
