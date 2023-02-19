@@ -8,10 +8,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class PlayerBiomes extends JavaPlugin {
     @Override
     public void onEnable() {
+        System.out.println("Load Successful!");
         JeffLib.init(this);
         PlaceholderAPIUtils.register("biome", player -> {
             if(player.isOnline()) {
-                return BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation()); // .getKey();
+                return BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation()).getNamespace() + ";" + BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation()).getKey();
             } else {
                 return null;
             }
@@ -19,29 +20,31 @@ public class PlayerBiomes extends JavaPlugin {
         // Credit to Si6gma#0828 for teaching me!
         PlaceholderAPIUtils.register("biome_formatted", player -> {
             if (player.isOnline()) {
-                String biome = BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation()); // .getKey();
-                String capitalizeWord = "";
+                String biomeKey = BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation()).getKey();
+                String biomeNamespace = BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation()).getNamespace();
+                String biome = "";
+                String formattedBiome = "";
 
-                biome = biome.replaceAll("_", " "); // Makes _ into spaces
-                biome = biome.replaceAll(":", ": "); // Namespace Formatting
-                int findSlash = biome.indexOf("/"); // Finds "/" to remove everything before it. (for terralith reserved biomes)
+                biome = biomeKey.replaceAll("_", " ");
+                
+                int findSlash = biomeKey.indexOf("/");
 
                 if (findSlash != -1) {
                     do {
-                        biome = biome.substring(findSlash + 1); // Removes "/" and everything before it. (for terralith reserved biomes)
-                        findSlash = biome.indexOf("/"); // Finds more "/". (for terralith reserved biomes)
-                    } while (findSlash != -1); // Untill no "/" remain this loop will continue. (for terralith reserved biomes)
+                        biome = biomeKey.substring(findSlash + 1);
+                        findSlash = biomeKey.indexOf("/");
+                    } while (findSlash != -1);
                 }
 
-                String words[] = biome.split("\\s"); // Makes Biome string into arrays spliting betwee ever space ("\\s").
+                String words[] = biome.split("\\s");
 
-                // Following Loop Capitalizes All Words In Sentence
                 for (String w : words) {
-                    String first = w.substring(0, 1);
-                    String afterfirst = w.substring(1);
-                    capitalizeWord += first.toUpperCase() + afterfirst + " ";
+                    //String first = w.substring(0, 1);
+                    //String afterfirst = w.substring(1);
+                    formattedBiome += w.substring(0, 1).toUpperCase() + w.substring(1) + " ";
                 }
-                return capitalizeWord.trim();
+                formattedBiome = biomeNamespace.substring(0, 1).toUpperCase() + biomeNamespace.substring(1) + ": " + formattedBiome;
+                return formattedBiome.trim();
             } else {
                 return null;
             }
