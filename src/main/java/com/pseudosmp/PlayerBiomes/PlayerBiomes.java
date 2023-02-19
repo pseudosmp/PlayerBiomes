@@ -43,12 +43,12 @@ public class PlayerBiomes extends JavaPlugin {
 
                 biome = biomeKey.replaceAll("_", " ");
                 
-                int findSlash = biomeKey.indexOf("/");
+                int findSlash = biome.indexOf("/");
 
                 if (findSlash != -1) {
                     do {
-                        biome = biomeKey.substring(findSlash + 1);
-                        findSlash = biomeKey.indexOf("/");
+                        biome = biome.substring(findSlash + 1);
+                        findSlash = biome.indexOf("/");
                     } while (findSlash != -1);
                 }
 
