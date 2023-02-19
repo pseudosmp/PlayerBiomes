@@ -3,10 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.pseudosmp</groupId>
     <artifactId>PlayerBiomes</artifactId>
-    <version>2.0.0</version>
+    <version>2.1.0</version>
     <name>PlayerBiomes</name>
     <description>Plugin for Getting player biome using NMS through a PAPI placeholder</description>
-    <url>https://pseudosmp.com</url>
+    <url>https://github.com/pseudoforceyt/PlayerBiomes</url>
     <inceptionYear>%year%</inceptionYear>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,21 +16,21 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>de.jeff_media</groupId>
+            <groupId>com.jeff_media</groupId>
             <artifactId>JeffLib</artifactId>
-            <version>7.3.1-SNAPSHOT</version> <!-- The version will only change when there are breaking changes -->
+            <version>12.0.1</version>
             <scope>compile</scope>
         </dependency>        
         <dependency>
             <groupId>me.clip</groupId>
              <artifactId>placeholderapi</artifactId>
-             <version>2.11.1</version>
+             <version>2.11.2</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.18.1-R0.1-SNAPSHOT</version>
+            <version>1.19.3-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -54,7 +54,7 @@
     </repositories>
     <organization>
         <name>PseudoSMP</name>
-        <url>https://pseudosmp.com</url>
+        <url>https://pseudoforceyt.github.io/smp</url>
     </organization>
     <build>
         <resources>
@@ -67,7 +67,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.10.1</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -76,7 +76,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.3.0</version>
                 <configuration>
                     <finalName>PlayerBiomes</finalName>
                 </configuration>
@@ -84,7 +84,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.3.0-SNAPSHOT</version>
+                <version>3.4.1</version>
                 <configuration>
                     <relocations>
                         <relocation>
@@ -105,7 +105,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>enforce-maven</id>
@@ -115,7 +115,7 @@
                         <configuration>
                             <rules>
                                 <requireMavenVersion>
-                                    <version>3.1.1</version>
+                                    <version>3.9.0</version>
                                 </requireMavenVersion>
                             </rules>
                         </configuration>
@@ -127,7 +127,7 @@
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-ftp</artifactId>
-                <version>3.4.3</version>
+                <version>3.5.3</version>
             </extension>
         </extensions>
     </build>
