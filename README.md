@@ -11,8 +11,8 @@ It gives you the exact same name that the client sees which means it supports cu
 
 Examples: `minecraft:jungle` becomes "jungle", `terralith:ominous_grove` becomes "ominous_grove", `terralith:zreserved/116/orchid_swamp` becomes "zreserved/116/orchid_swamp"
 
-#### `%playerbiomes_biome_capitalized%` *(Credit: Si6gma#0828)*:
-##### Gives the Capitalized name of the biome *(Removes the `zreserved/number/` parts from Terralith biomes)*
+#### `%playerbiomes_biome_formatted%` *(Thanks to Si6gma#0833 for help)*:
+##### Gives the Capitalized name of the biome *(Removes the `zreserved/number/` and `cave/` parts from Terralith biomes)*
 
 Examples: `minecraft:jungle` becomes "Jungle", `terralith:ominous_grove` becomes "Ominous Grove", `terralith:zreserved/116/orchid_swamp` becomes "Orchid Swamp"
 
