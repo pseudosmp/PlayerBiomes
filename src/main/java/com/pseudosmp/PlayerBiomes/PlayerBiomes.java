@@ -48,10 +48,6 @@ public class PlayerBiomes extends JavaPlugin {
         });
     }
     @Override
-    public boolean persist() {
-        return true;
-    }
-    @Override
     public void onDisable() {
         System.out.println("Goodbye!");
     }
