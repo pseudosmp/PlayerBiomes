@@ -1,7 +1,7 @@
 package com.pseudosmp.PlayerBiomes;
 
-import de.jeff_media.jefflib.*;
-import de.jeff_media.jefflib.pluginhooks.PlaceholderAPIUtils;
+import com.jeff_media.jefflib.*;
+import com.jeff_media.jefflib.pluginhooks.PlaceholderAPIUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
