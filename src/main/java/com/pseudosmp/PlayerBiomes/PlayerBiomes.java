@@ -5,7 +5,7 @@ import com.jeff_media.jefflib.pluginhooks.PlaceholderAPIUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
-public class PlayerBiomes extends JavaPlugin  {
+public class PlayerBiomes extends JavaPlugin {
     @Override
     public void onEnable() {
         JeffLib.init(this);
@@ -16,13 +16,14 @@ public class PlayerBiomes extends JavaPlugin  {
                 return null;
             }
         });
-        // Credit to Si6gma#0828
+        // Credit to Si6gma#0828 for teaching me!
         PlaceholderAPIUtils.register("biome_capitalized", player -> {
             if (player.isOnline()) {
                 String biome = BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation()).getKey();
                 String capitalizeWord = "";
 
                 biome = biome.replaceAll("_", " "); // Makes _ into spaces
+                biome = biome.replaceAll(":", ": "); // Namespace Formatting
                 int findSlash = biome.indexOf("/"); // Finds "/" to remove everything before it. (for terralith reserved biomes)
 
                 if (findSlash != -1) {
@@ -47,7 +48,11 @@ public class PlayerBiomes extends JavaPlugin  {
         });
     }
     @Override
-    public void onDisable(){
+    public boolean persist() {
+        return true;
+    }
+    @Override
+    public void onDisable() {
         System.out.println("Goodbye!");
     }
 }
