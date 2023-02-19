@@ -11,7 +11,7 @@ public class PlayerBiomes extends JavaPlugin {
         JeffLib.init(this);
         PlaceholderAPIUtils.register("biome", player -> {
             if(player.isOnline()) {
-                return BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation()).getKey();
+                return BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation()); // .getKey();
             } else {
                 return null;
             }
@@ -19,7 +19,7 @@ public class PlayerBiomes extends JavaPlugin {
         // Credit to Si6gma#0828 for teaching me!
         PlaceholderAPIUtils.register("biome_formatted", player -> {
             if (player.isOnline()) {
-                String biome = BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation()).getKey();
+                String biome = BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation()); // .getKey();
                 String capitalizeWord = "";
 
                 biome = biome.replaceAll("_", " "); // Makes _ into spaces
