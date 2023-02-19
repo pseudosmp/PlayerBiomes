@@ -24,7 +24,7 @@ Examples: `minecraft:jungle` becomes "Minecraft", `terralith:ominous_grove` beco
 #### `%playerbiomes_biome_formatted%`
 ##### Gives the full name of the biome in the format: `<Namespace>: <Biome Name Capitalized>`
 
-Examples: `minecraft:jungle` becomes "Minecraft: Jungle", `terralith:ominous_grove` becomes "Minecraft: Ominous Grove", `terralith:zreserved/116/orchid_swamp` becomes "Terralith: Orchid Swamp"
+Examples: `minecraft:jungle` becomes "Minecraft: Jungle", `terralith:ominous_grove` becomes "Terralith: Ominous Grove", `terralith:zreserved/116/orchid_swamp` becomes "Terralith: Orchid Swamp"
 
 (this is **my first plugin** so pls no hate)
 Thanks @mfnalex and @RoughlyUnderscore for helping with this plugin!
