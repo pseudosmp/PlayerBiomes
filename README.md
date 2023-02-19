@@ -18,7 +18,7 @@ Examples: `minecraft:jungle` becomes "Jungle", `terralith:ominous_grove` becomes
 
 Currently **DOESN'T support PlaceholderAPI reloads**! Will be fixed soon
 
-(this is **my first plugin** so pls no hate, thanks [@mfnalex](https://github.com/mfnalex) for helping with this plugin :P)
+(this is **my first plugin** so pls no hate, thanks @mfnalex and @RoughlyUnderscore for helping with this plugin :P)
 Utilizes the [JeffLib](https://github.com/JEFF-Media-GbR/JeffLib)
 
 Building:
