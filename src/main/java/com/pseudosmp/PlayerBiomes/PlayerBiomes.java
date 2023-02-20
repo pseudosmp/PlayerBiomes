@@ -17,23 +17,42 @@ public class PlayerBiomes extends JavaPlugin {
                 return null;
             }
         });
+
         PlaceholderAPIUtils.register("biome_namespace", player -> {
-            if(player.isOnline()) {
+            if (player.isOnline()) {
                 String ns = BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation()).getNamespace();
                 return ns.substring(0, 1).toUpperCase() + ns.substring(1);
             } else {
                 return null;
             }
         });
+
         PlaceholderAPIUtils.register("biome_name", player -> {
             if(player.isOnline()) {
-                String n = BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation()).getKey();
-                return n.substring(0, 1).toUpperCase() + n.substring(1);
+                String biome = BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation()).getKey();
+                String n = "";
+
+                biome = biome.replaceAll("_", " ");
+
+                int findSlash = biome.indexOf("/");
+                if (findSlash != -1) {
+                    do {
+                        biome = biome.substring(findSlash + 1);
+                        findSlash = biome.indexOf("/");
+                    } while (findSlash != -1);
+                }
+
+                String words[] = biome.split("\\s");
+                for (String w : words) {
+                    n += w.substring(0, 1).toUpperCase() + w.substring(1) + " ";
+                }
+
+                return n.trim();
             } else {
                 return null;
             }
         });
-        // Credit to Si6gma#0828 for teaching me!
+
         PlaceholderAPIUtils.register("biome_formatted", player -> {
             if (player.isOnline()) {
                 String biomeKey = BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation()).getKey();
