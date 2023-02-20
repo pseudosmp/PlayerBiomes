@@ -11,7 +11,7 @@ public class PlayerBiomes extends JavaPlugin {
     public void onEnable() {
         System.out.println("Load Successful!");
         // bstats
-        int pluginid = 17782;
+        int pluginId = 17782;
         Metrics metrics = new Metrics(this, pluginId);
         
         // placeholders
