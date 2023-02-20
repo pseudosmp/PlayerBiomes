@@ -3,12 +3,18 @@ package com.pseudosmp.PlayerBiomes;
 import com.jeff_media.jefflib.*;
 import com.jeff_media.jefflib.pluginhooks.PlaceholderAPIUtils;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bstats.bukkit.Metrics;
 
 
 public class PlayerBiomes extends JavaPlugin {
     @Override
     public void onEnable() {
         System.out.println("Load Successful!");
+        // bstats
+        int pluginid = 17782;
+        Metrics metrics = new Metrics(this, pluginId);
+        
+        // placeholders
         JeffLib.init(this);
         PlaceholderAPIUtils.register("biome_raw", player -> {
             if(player.isOnline()) {
