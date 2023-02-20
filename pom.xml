@@ -1,19 +1,23 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
     <groupId>com.pseudosmp</groupId>
     <artifactId>PlayerBiomes</artifactId>
     <version>3.0.0</version>
+    
     <name>PlayerBiomes</name>
     <description>Plugin for Getting player biome using NMS through a PAPI placeholder</description>
     <url>https://github.com/pseudoforceyt/PlayerBiomes</url>
     <inceptionYear>%year%</inceptionYear>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
         <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
         <config.version>${maven.build.timestamp}</config.version>
     </properties>
+    
     <dependencies>
         <dependency>
             <groupId>com.jeff_media</groupId>
@@ -40,6 +44,7 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+    
     <repositories>
         <repository>
             <id>spigot-public</id>
@@ -58,10 +63,12 @@
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
+    
     <organization>
         <name>PseudoSMP</name>
         <url>https://pseudoforceyt.github.io/smp</url>
     </organization>
+    
     <build>
         <resources>
             <resource>
@@ -69,6 +76,7 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
+        
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -133,6 +141,7 @@
                 </executions>
             </plugin>
         </plugins>
+        
         <extensions>
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
@@ -141,10 +150,12 @@
             </extension>
         </extensions>
     </build>
+    
     <pluginRepositories>
         <pluginRepository>
             <id>maven-snapshots</id>
             <url>https://repository.apache.org/content/repositories/snapshots/</url>
         </pluginRepository>
     </pluginRepositories>
+    
 </project>
