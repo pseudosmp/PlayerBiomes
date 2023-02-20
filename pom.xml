@@ -20,7 +20,13 @@
             <artifactId>JeffLib</artifactId>
             <version>12.0.2</version>
             <scope>compile</scope>
-        </dependency>        
+        </dependency>
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>3.0.0</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>me.clip</groupId>
              <artifactId>placeholderapi</artifactId>
@@ -88,8 +94,12 @@
                 <configuration>
                     <relocations>
                         <relocation>
-                            <pattern>de.jeff_media.jefflib</pattern>
+                            <pattern>com.jeff_media.jefflib</pattern>
                             <shadedPattern>com.pseudosmp.PlayerBiomes.jefflib</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.bstats</pattern>
+                            <shadedPattern>com.pseudosmp.PlayerBiomes.bstats</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
