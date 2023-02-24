@@ -1,4 +1,4 @@
-package com.pseudosmp.PlayerBiomes;
+package com.pseudoforce.PlayerBiomes;
 
 import com.jeff_media.jefflib.*;
 import com.jeff_media.jefflib.pluginhooks.PlaceholderAPIUtils;
