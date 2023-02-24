@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
-    <groupId>com.pseudosmp</groupId>
+    <groupId>com.pseudoforce</groupId>
     <artifactId>PlayerBiomes</artifactId>
     <version>3.1.0</version>
     
@@ -65,8 +65,8 @@
     </repositories>
     
     <organization>
-        <name>PseudoSMP</name>
-        <url>https://pseudoforceyt.github.io/smp</url>
+        <name>The Pseudo Force</name>
+        <url>https://github.com/pseudoforceyt</url>
     </organization>
     
     <build>
@@ -103,11 +103,11 @@
                     <relocations>
                         <relocation>
                             <pattern>com.jeff_media.jefflib</pattern>
-                            <shadedPattern>com.pseudosmp.PlayerBiomes.jefflib</shadedPattern>
+                            <shadedPattern>com.pseudoforce.PlayerBiomes.jefflib</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>org.bstats</pattern>
-                            <shadedPattern>com.pseudosmp.PlayerBiomes.bstats</shadedPattern>
+                            <shadedPattern>com.pseudoforce.PlayerBiomes.bstats</shadedPattern>
                         </relocation>
                     </relocations>
                     <filters>
@@ -119,6 +119,7 @@
                             </includes>
                         </filter>
                     </filters>
+                    <minimizeJar>true</minimizeJar>
                 </configuration>
                 <executions>
                     <execution>
