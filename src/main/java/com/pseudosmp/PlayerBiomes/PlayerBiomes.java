@@ -9,7 +9,6 @@ import org.bstats.bukkit.Metrics;
 public class PlayerBiomes extends JavaPlugin {
     @Override
     public void onEnable() {
-        System.out.println("Load Successful!");
         // bstats
         int pluginId = 17782;
         Metrics metrics = new Metrics(this, pluginId);
@@ -87,9 +86,5 @@ public class PlayerBiomes extends JavaPlugin {
                 return null;
             }
         });
-    }
-    @Override
-    public void onDisable() {
-        System.out.println("Goodbye!");
     }
 }
