@@ -4,15 +4,12 @@ import com.jeff_media.jefflib.*;
 import com.jeff_media.jefflib.pluginhooks.PlaceholderAPIUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bstats.bukkit.Metrics;
-import java.util.logging.*;
+
 
 public class PlayerBiomes extends JavaPlugin {
     @Override
-    public static void main(String[] args) {
-        Logger logger= Logger.getLogger(PlayerBiomes.class.getName(),bundle.getBaseBundleName());
-    }
     public void onEnable() {
-        logger.info("Loaded Successfully!");
+        System.out.println("Load Successful!");
         // bstats
         int pluginId = 17782;
         Metrics metrics = new Metrics(this, pluginId);
@@ -93,6 +90,6 @@ public class PlayerBiomes extends JavaPlugin {
     }
     @Override
     public void onDisable() {
-        logger.info("Goodbye!");
+        System.out.println("Goodbye!");
     }
 }
