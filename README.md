@@ -1,4 +1,4 @@
-# PlayerBiomes
+# [PlayerBiomes](https://www.spigotmc.org/resources/playerbiomes-1-16-x-1-19-x.108144/)
 Find player's exact biome using a PlaceholderAPI placeholder
 ### What does it do different than the other PlaceholderAPI expansions?
 It gives you the exact same name that the client sees which means it supports custom biomes (plugin and datapack)
