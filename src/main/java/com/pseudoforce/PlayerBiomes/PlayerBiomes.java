@@ -11,6 +11,31 @@ import org.bukkit.Bukkit;
 
 public class PlayerBiomes extends JavaPlugin {
 
+    public static String formatBiome(FetchBiome.Pair biomePair) {
+        String biomeKey = biomePair.key;
+        String biomeNamespace = biomePair.namespace;
+        String biome = "";
+        String formattedBiome = "";
+
+        biome = biomeKey.replaceAll("_", " ");
+        
+        int findSlash = biome.indexOf("/");
+
+        if (findSlash != -1) {
+            do {
+                biome = biome.substring(findSlash + 1);
+                findSlash = biome.indexOf("/");
+            } while (findSlash != -1);
+        }
+
+        String words[] = biome.split("\\s");
+        for (String w : words) {
+            formattedBiome += w.substring(0, 1).toUpperCase() + w.substring(1) + " ";
+        }
+        formattedBiome = biomeNamespace.substring(0, 1).toUpperCase() + biomeNamespace.substring(1) + ": " + formattedBiome;
+        return formattedBiome.trim();
+    }
+
     @Override
     public void onEnable() {
         // bstats
@@ -66,28 +91,7 @@ public class PlayerBiomes extends JavaPlugin {
             PlaceholderAPIUtils.register("biome_formatted", player -> {
                 if (player.isOnline()) {
                     FetchBiome.Pair biomePair = FetchBiome.getBiomeName(player.getPlayer().getLocation());
-                    String biomeKey = biomePair.key;
-                    String biomeNamespace = biomePair.namespace;
-                    String biome = "";
-                    String formattedBiome = "";
-
-                    biome = biomeKey.replaceAll("_", " ");
-                    
-                    int findSlash = biome.indexOf("/");
-
-                    if (findSlash != -1) {
-                        do {
-                            biome = biome.substring(findSlash + 1);
-                            findSlash = biome.indexOf("/");
-                        } while (findSlash != -1);
-                    }
-
-                    String words[] = biome.split("\\s");
-                    for (String w : words) {
-                        formattedBiome += w.substring(0, 1).toUpperCase() + w.substring(1) + " ";
-                    }
-                    formattedBiome = biomeNamespace.substring(0, 1).toUpperCase() + biomeNamespace.substring(1) + ": " + formattedBiome;
-                    return formattedBiome.trim();
+                    return formatBiome(biomePair);
                 } else {
                     return null;
                 }
@@ -109,8 +113,8 @@ public class PlayerBiomes extends JavaPlugin {
             }
 
             Player player = (Player) sender;
-            FetchBiome.Pair biome = FetchBiome.getBiomeName(player.getLocation());
-            player.sendMessage("You are currently in the " + biome.key + " biome.");
+            FetchBiome.Pair biomePair = FetchBiome.getBiomeName(player.getPlayer().getLocation());
+            player.sendMessage("You are currently in the " + formatBiome(biomePair) + " biome.");
             return true;
         }
     }
