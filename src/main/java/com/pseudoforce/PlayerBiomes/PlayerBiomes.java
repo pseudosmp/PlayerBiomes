@@ -98,6 +98,7 @@ public class PlayerBiomes extends JavaPlugin {
 
         // Register the /whereami command
         this.getCommand("whereami").setExecutor(new WhereAmICommand());
+        getLogger().info("/whereami is now a valid question! (PlayerBiomes has been enabled)");
     }
     public class WhereAmICommand implements CommandExecutor {
         @Override
