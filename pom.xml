@@ -20,8 +20,8 @@
     
     <dependencies>
         <dependency>
-            <groupId>com.jeff_media</groupId>
-            <artifactId>JeffLib</artifactId>
+            <groupId>com.jeff_media.jefflib</groupId>
+            <artifactId>jefflib</artifactId>
             <version>13.0.3</version>
             <scope>compile</scope>
         </dependency>
