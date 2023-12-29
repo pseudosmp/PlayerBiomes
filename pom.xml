@@ -4,7 +4,7 @@
     
     <groupId>com.pseudoforce</groupId>
     <artifactId>PlayerBiomes</artifactId>
-    <version>4.2.0</version>
+    <version>4.3.0</version>
     
     <name>PlayerBiomes</name>
     <description>Plugin for Getting player biome using NMS through a PAPI placeholder</description>
