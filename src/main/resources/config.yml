@@ -1,0 +1,4 @@
+configVersion: 5.0.0
+messages:
+    user_whereami: "You are currently in the %s biome."
+    console_whereami: "This command can only be executed by a player."

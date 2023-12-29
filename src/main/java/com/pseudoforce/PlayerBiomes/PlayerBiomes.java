@@ -38,10 +38,13 @@ public class PlayerBiomes extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // bstats
-        int pluginId = 17782;
-        Metrics metrics = new Metrics(this, pluginId);
         
+        // bstats, enabled by default 
+        if (getConfig().getBoolean("bstats_consent", true)) {
+            int pluginId = 17782;
+            Metrics metrics = new Metrics(this, pluginId);
+        }
+
         // placeholders
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             PlaceholderAPIUtils.register("biome_raw", player -> {
@@ -100,21 +103,42 @@ public class PlayerBiomes extends JavaPlugin {
             getLogger().warning("PlaceholderAPI is not available and thus placeholders will not be registered");
         }
 
+        // Save the default config if it doesn't exist
+        this.saveDefaultConfig();
+
         // Register the /whereami command
-        this.getCommand("whereami").setExecutor(new WhereAmICommand());
+        this.getCommand("whereami").setExecutor(new WhereAmICommand(this));
         getLogger().info("/whereami is now a valid question! (PlayerBiomes has been enabled)");
     }
     public class WhereAmICommand implements CommandExecutor {
+        private final JavaPlugin plugin;
+        public WhereAmICommand(JavaPlugin plugin) {
+            this.plugin = plugin;
+        }
+
         @Override
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
             if (!(sender instanceof Player)) {
-                sender.sendMessage("This command can only be run by a player.");
+                String message = plugin.getConfig().getString("messages.console_whereami");
+                if (message == null) {
+                    getLogger().warning("The console message for /whereami is blank. Check your config!");
+                    message = "This command can only be executed by a player.";
+                }
+                sender.sendMessage(message);
                 return true;
             }
 
             Player player = (Player) sender;
             FetchBiome.Pair biomePair = FetchBiome.getBiomeName(player.getPlayer().getLocation());
-            player.sendMessage("You are currently in the " + formatBiome(biomePair) + " biome.");
+            String formattedBiome = formatBiome(biomePair);
+
+            // Get the message from the config and send
+            String message = plugin.getConfig().getString("messages.user_whereami");
+            if (message == null) {
+                getLogger().warning("The user message for /whereami is blank. Check your config!");
+                message = "You are currently in the %s biome.";
+            }
+            player.sendMessage(String.format(message, formattedBiome));
             return true;
         }
     }
