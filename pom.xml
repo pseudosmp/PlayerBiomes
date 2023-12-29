@@ -4,7 +4,7 @@
     
     <groupId>com.pseudoforce</groupId>
     <artifactId>PlayerBiomes</artifactId>
-    <version>4.3.0</version>
+    <version>5.0.0-testing</version>
     
     <name>PlayerBiomes</name>
     <description>Plugin for Getting player biome using NMS through a PAPI placeholder</description>
@@ -19,12 +19,6 @@
     </properties>
     
     <dependencies>
-        <dependency>
-            <groupId>com.jeff_media.jefflib</groupId>
-            <artifactId>jefflib</artifactId>
-            <version>13.0.3</version>
-            <scope>compile</scope>
-        </dependency>
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
@@ -49,10 +43,6 @@
         <repository>
             <id>spigot-public</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
-        </repository>
-        <repository>
-            <id>jeff-media-gbr</id>
-            <url>https://hub.jeff-media.com/nexus/repository/jeff-media-public/</url>
         </repository>
         <repository>
             <id>placeholderapi</id>
@@ -94,41 +84,6 @@
                 <configuration>
                     <finalName>PlayerBiomes</finalName>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.5.0</version>
-                <configuration>
-                    <relocations>
-                        <relocation>
-                            <pattern>com.jeff_media.jefflib</pattern>
-                            <shadedPattern>com.pseudoforce.PlayerBiomes.jefflib</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>org.bstats</pattern>
-                            <shadedPattern>com.pseudoforce.PlayerBiomes.bstats</shadedPattern>
-                        </relocation>
-                    </relocations>
-                    <filters>
-                        <filter>
-                            <artifact>*:*</artifact>
-                            <excludeDefaults>false</excludeDefaults>
-                            <includes>
-                                <include>com/jeff_media/jefflib/internal/nms/**</include>
-                            </includes>
-                        </filter>
-                    </filters>
-                    <minimizeJar>true</minimizeJar>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -2,6 +2,15 @@ name: PlayerBiomes
 main: com.pseudoforce.PlayerBiomes.PlayerBiomes
 version: ${project.version}
 description: Plugin for Getting player biome using NMS through a PlaceholderAPI placeholder
-api-version: "1.13"
-depend:
+api-version: "1.16"
+commands:
+  whereami:
+    description: Displays the name of the biome the player is currently in.
+    usage: /<command>
+    permission: playerbiomes.command.whereami
+permissions:
+  playerbiomes.command.whereami:
+    description: Allows usage of the /whereami command
+    default: true
+softdepend:
   - PlaceholderAPI
