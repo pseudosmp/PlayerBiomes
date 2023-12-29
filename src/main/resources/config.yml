@@ -1,4 +1,16 @@
+### PlayerBiomes by PseudoPanda https://github.com/pseudoforceyt ###
+
+# Do not touch this!
 configVersion: 5.0.0
+
+# By default, this plugin uses bstats for collecting anonymous data on
+# how many servers this plugin is running on and how many players are playing.
+# Set this to false to opt out and disable bstats for this plugin
+bstats_consent: true
+
+# Messages that appear when you execute the /whereami command
+# Can be used for localisation
 messages:
+    # IMPORTANT: '%s' is the biome name. Make sure it is in your final string somewhere.
     user_whereami: "You are currently in the %s biome."
     console_whereami: "This command can only be executed by a player."
