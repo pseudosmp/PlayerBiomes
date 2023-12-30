@@ -47,7 +47,7 @@ public class FetchBiome {
         final BlockPos pos = new BlockPos(location.getBlockX(), location.getBlockY(), location.getBlockZ());
         final LevelChunk nmsChunk = ((CraftWorld) location.getWorld()).getHandle().getChunkAt(pos);
         if (nmsChunk != null) {
-            return nmsChunk.getBiomes().getNoiseBiome(pos.getX(), pos.getY(), pos.getZ());
+            return nmsChunk.getBiomes().getNoiseBiome(pos.getX() >> 2, pos.getY() >> 2, pos.getZ() >> 2);
         }
         return null;
     }
