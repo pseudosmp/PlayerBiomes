@@ -19,7 +19,7 @@ public class FetchBiome {
 
     private static final ResourceKey<Registry<Biome>> BIOME_REGISTRY_RESOURCE_KEY = ResourceKey.createRegistryKey(new ResourceLocation("worldgen/biome"));
 
-    class Pair {
+    static class Pair {
         String namespace;
         String key;
 
