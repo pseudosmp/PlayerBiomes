@@ -19,10 +19,10 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build Spigot 1.16.5
-      run: >
-        mkdir buildtools && cd buildtools
-        curl -o buildtools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-        java -jar buildtools.jar --rev 1.16.5 --remapped
+      run: |
+        mkdir buildtools && cd buildtools \
+        curl -o buildtools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar \
+        java -jar buildtools.jar --rev 1.16.5 --remapped \
         cd ..
     - name: Build with Maven
       run: mvn install -e
