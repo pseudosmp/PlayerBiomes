@@ -17,7 +17,7 @@ import org.bukkit.craftbukkit.v1_18_R2.CraftWorld;
 @UtilityClass
 public class FetchBiome {
 
-    private final ResourceKey<Registry<Biome>> BIOME_REGISTRY_RESOURCE_KEY = Registry.BIOME_REGISTRY;
+    private static final ResourceKey<Registry<Biome>> BIOME_REGISTRY_RESOURCE_KEY = Registry.BIOME_REGISTRY;
 
     class Pair {
         String namespace;
