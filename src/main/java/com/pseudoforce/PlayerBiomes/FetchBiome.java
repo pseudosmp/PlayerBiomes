@@ -11,13 +11,13 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.chunk.LevelChunk;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_18_R2.CraftServer;
-import org.bukkit.craftbukkit.v1_18_R2.CraftWorld;
+import org.bukkit.craftbukkit.v1_19_R3.CraftServer;
+import org.bukkit.craftbukkit.v1_19_R3.CraftWorld;
 
 @UtilityClass
 public class FetchBiome {
 
-    private final ResourceKey<Registry<Biome>> BIOME_REGISTRY_RESOURCE_KEY = Registry.BIOME_REGISTRY;
+    private static final ResourceKey<Registry<Biome>> BIOME_REGISTRY_RESOURCE_KEY = ResourceKey.createRegistryKey(new ResourceLocation("worldgen/biome"));
 
     class Pair {
         String namespace;
@@ -48,7 +48,7 @@ public class FetchBiome {
         final BlockPos pos = new BlockPos(location.getBlockX(), location.getBlockY(), location.getBlockZ());
         final LevelChunk nmsChunk = ((CraftWorld) location.getWorld()).getHandle().getChunkAt(pos);
         if (nmsChunk != null) {
-            return nmsChunk.getNoiseBiome(pos.getX(), pos.getY(), pos.getZ());
+            return nmsChunk.getNoiseBiome(pos.getX() >> 2, pos.getY() >> 2, pos.getZ() >> 2);
         }
         return null;
     }
