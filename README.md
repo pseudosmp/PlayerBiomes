@@ -48,6 +48,8 @@ Gives the full namespaced ID of the biome in the format: <Namespace>: <Biome Nam
 `terralith:caves/deep_caves` becomes "Terralith: Deep Caves"
 `incendium:weeping_valley` becomes "Incendium: Weeping Valley"
 
+***
+
 Support and Feature Requests in [SpigotMC Resource Discussion Tab](https://www.spigotmc.org/threads/playerbiomes-1-16-3-1-20-x.592358/) / [Discord](https://dsc.gg/pseudoforceyt) only! Do NOT use the issues tab for this.
 (this is **my first plugin** so pls no hate)
 Thanks @mfnalex and @RoughlyUnderscore for helping with this plugin!
