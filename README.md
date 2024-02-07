@@ -1,36 +1,63 @@
-# [PlayerBiomes](https://www.spigotmc.org/resources/playerbiomes-1-16-x-1-19-x.108144/)
-Find player's exact biome using a PlaceholderAPI placeholder
-### What does it do different than the other PlaceholderAPI expansions?
-It gives you the exact same name that the client sees which means it supports custom biomes (plugin and datapack)
+# [PlayerBiomes on SpigotMC](https://www.spigotmc.org/resources/playerbiomes-1-16-x-1-19-x.108144/)
+- Find player's exact biome using a PlaceholderAPI placeholder
+- Use /whereami to find what biome you are in
+- Gives you the exact same name that the client sees which means it supports **custom biomes (datapacks like Terralith, Incendium, etc.)**
 
-### Supports [Terralith](https://www.curseforge.com/minecraft/mc-mods/terralith) datapack's reserved biome names
+## Commands
+#### `/whereami`:
+##### Permission: playerbiomes.command.whereami (True by default) 
+Description: Displays the name of the biome the player is currently in.
+![image](https://github.com/pseudoforceyt/PlayerBiomes/assets/70620481/72ba4a09-9e06-479d-b43a-3ebe7bc0d179)
+
+## Configuration: (config.yml)
+Options are described in comments beside them
+[Latest](https://github.com/pseudoforceyt/PlayerBiomes/blob/main/src/main/resources/config.yml) | [v4.3.0-legacy](https://raw.githubusercontent.com/pseudoforceyt/PlayerBiomes/v4.3.0-legacy/src/main/resources/config.yml)
 
 ## Placeholders
-#### `%playerbiomes_biome_raw%`: 
-##### Gives the namespace of the biome
+![image](https://github.com/pseudoforceyt/PlayerBiomes/assets/70620481/2402d591-c9bf-4e2e-b81e-807c3fab2365)
 
-Examples: `minecraft:jungle`, `terralith:ominous_grove`, `terralith:zreserved/116/orchid_swamp`
+#### `%playerbiomes_biome_raw%`: 
+Gives the complete namespaced ID of the biome
+##### Examples:
+"minecraft:jungle"
+"terralith:moonlight_grove"
+"terralith:caves/deep_caves"
+"incendium:weeping_valley"
 
 #### `%playerbiomes_biome_name%`:
-##### Gives the Capitalized name of the biome *(Removes the `zreserved/number/` and `caves/` parts from Terralith biomes)*
-
-Examples: `minecraft:jungle` becomes "Jungle", `terralith:ominous_grove` becomes "Ominous Grove", `terralith:zreserved/116/orchid_swamp` becomes "Orchid Swamp"
+Gives the Capitalized name of the biome (Removes the internal path of biomes from the Namespaced ID)
+##### Examples:
+`minecraft:jungle` becomes "Jungle"
+`terralith:moonlight_grove` becomes "Moonlight Grove"
+`terralith:caves/deep_caves` becomes "Deep Caves"
+`incendium:weeping_valley` becomes "Weeping Valley"
 
 #### `%playerbiomes_biome_namespace%`:
-##### Gives the Capitalized nameSPACE of the biome
-
-Examples: `minecraft:jungle` becomes "Minecraft", `terralith:ominous_grove` becomes "Terralith", `terralith:zreserved/116/orchid_swamp` becomes "Terralith"
+Gives the Capitalized nameSPACE of the biome
+##### Examples:
+`minecraft:jungle` becomes "Minecraft"
+`terralith:moonlight_grove` becomes "Terralith"
+`terralith:caves/deep_caves` becomes "Terralith"
+`incendium:weeping_valley` becomes "Incendium".
 
 #### `%playerbiomes_biome_formatted%`
-##### Gives the full name of the biome in the format: `<Namespace>: <Biome Name Capitalized>`
+Gives the full namespaced ID of the biome in the format: <Namespace>: <Biome Name Capitalized>
+##### Examples:
+`minecraft:jungle` becomes "Minecraft: Jungle"
+`terralith:moonlight_grove` becomes "Terralith: Moonlight Grove"
+`terralith:caves/deep_caves` becomes "Terralith: Deep Caves"
+`incendium:weeping_valley` becomes "Incendium: Weeping Valley"
 
-Examples: `minecraft:jungle` becomes "Minecraft: Jungle", `terralith:ominous_grove` becomes "Terralith: Ominous Grove", `terralith:zreserved/116/orchid_swamp` becomes "Terralith: Orchid Swamp"
-
+Support and Feature Requests in [SpigotMC Resource Discussion Tab](https://www.spigotmc.org/threads/playerbiomes-1-16-3-1-20-x.592358/) / [Discord](https://dsc.gg/pseudoforceyt) only! Do NOT use the issues tab for this.
 (this is **my first plugin** so pls no hate)
 Thanks @mfnalex and @RoughlyUnderscore for helping with this plugin!
-Thanks to Si6gma#0833 for help with string manipulation!
+Thanks to @si6gma (Discord) for help with string manipulation!
 
-Utilizes the [JeffLib](https://github.com/JEFF-Media-GbR/JeffLib) library for initializing placeholders and getting the biome namespaced ID.
+Versions <= 4.3.0 utilize the [JeffLib](https://github.com/JEFF-Media-GbR/JeffLib) library for initializing placeholders and getting the biome namespaced ID.
 
 Building:
-Build using `mvn install`
+1. Clone the project (the version/branch of your choice)
+2. Build using `mvn install`
+
+[bStats - PlayerBiomes](https://bstats.org/plugin/bukkit/PlayerBiomes/17782)https://bstats.org/plugin/bukkit/PlayerBiomes/17782
+![image](https://bstats.org/signatures/bukkit/PlayerBiomes.svg)
