@@ -59,5 +59,5 @@ Building:
 1. Clone the project (the version/branch of your choice)
 2. Build using `mvn install`
 
-[bStats - PlayerBiomes](https://bstats.org/plugin/bukkit/PlayerBiomes/17782)https://bstats.org/plugin/bukkit/PlayerBiomes/17782
+[bStats - PlayerBiomes](https://bstats.org/plugin/bukkit/PlayerBiomes/17782)
 ![image](https://bstats.org/signatures/bukkit/PlayerBiomes.svg)
