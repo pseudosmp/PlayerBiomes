@@ -43,7 +43,7 @@ Examples:
 
 `incendium:weeping_valley` becomes "Incendium"
 
-#### `%playerbiomes_biome_formatted%`: Gives the full namespaced ID of the biome in the format: <Namespace>: <Biome Name Capitalized>
+#### `%playerbiomes_biome_formatted%`: Gives the full namespaced ID of the biome in the format "Namespace: Biome Name Capitalized"
 Examples:
 
 `minecraft:jungle` becomes "Minecraft: Jungle"
