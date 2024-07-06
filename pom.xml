@@ -2,13 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
-    <groupId>com.pseudoforce</groupId>
+    <groupId>com.pseudosmp</groupId>
     <artifactId>PlayerBiomes</artifactId>
-    <version>4.3.0-legacy</version>
+    <version>6.0.0</version>
     
     <name>PlayerBiomes</name>
     <description>Plugin for Getting player biome using NMS through a PAPI placeholder</description>
-    <url>https://github.com/pseudoforceyt/PlayerBiomes</url>
+    <url>https://github.com/pseudosmp/PlayerBiomes</url>
     <inceptionYear>%year%</inceptionYear>
     
     <properties>
@@ -20,9 +20,9 @@
     
     <dependencies>
         <dependency>
-            <groupId>com.jeff_media</groupId>
-            <artifactId>JeffLib</artifactId>
-            <version>12.6.0</version>
+            <groupId>com.jeff-media.jefflib</groupId>
+            <artifactId>jefflib</artifactId>
+            <version>14.2.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -98,16 +98,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.4.1</version>
+                <version>3.5.0</version>
                 <configuration>
                     <relocations>
                         <relocation>
                             <pattern>com.jeff_media.jefflib</pattern>
-                            <shadedPattern>com.pseudoforce.PlayerBiomes.jefflib</shadedPattern>
+                            <shadedPattern>com.pseudosmp.PlayerBiomes.jefflib</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>org.bstats</pattern>
-                            <shadedPattern>com.pseudoforce.PlayerBiomes.bstats</shadedPattern>
+                            <shadedPattern>com.pseudosmp.PlayerBiomes.bstats</shadedPattern>
                         </relocation>
                     </relocations>
                     <filters>
