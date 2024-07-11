@@ -11,7 +11,7 @@ Description: Displays the name of the biome the player is currently in.
 
 ## Configuration: (config.yml)
 Options are described in comments beside them
-[Latest](https://github.com/pseudoforceyt/PlayerBiomes/blob/main/src/main/resources/config.yml) | [v4.3.0-legacy](https://raw.githubusercontent.com/pseudoforceyt/PlayerBiomes/v4.3.0-legacy/src/main/resources/config.yml)
+[Latest](https://github.com/pseudoforceyt/PlayerBiomes/blob/main/src/main/resources/config.yml)
 
 ## Placeholders
 ![image](https://github.com/pseudoforceyt/PlayerBiomes/assets/70620481/2402d591-c9bf-4e2e-b81e-807c3fab2365)
@@ -51,11 +51,11 @@ Gives the full namespaced ID of the biome in the format: <Namespace>: <Biome Nam
 ***
 
 Support and Feature Requests in [SpigotMC Resource Discussion Tab](https://www.spigotmc.org/threads/playerbiomes-1-16-3-1-20-x.592358/) / [Discord](https://dsc.gg/pseudoforceyt) only! Do NOT use the issues tab for this.
-(this is **my first plugin** so pls no hate)
+
 Thanks @mfnalex and @RoughlyUnderscore for helping with this plugin!
 Thanks to @si6gma (Discord) for help with string manipulation!
 
-Versions <= 4.3.0 utilize the [JeffLib](https://github.com/JEFF-Media-GbR/JeffLib) library for initializing placeholders and getting the biome namespaced ID.
+Versions <= 4.3.0 and 6.0.0 utilize the [JeffLib](https://github.com/JEFF-Media-GbR/JeffLib) library for initializing placeholders and getting the biome namespaced ID.
 
 Building:
 1. Clone the project (the version/branch of your choice)
