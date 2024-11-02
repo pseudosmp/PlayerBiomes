@@ -4,7 +4,7 @@
     
     <groupId>com.pseudosmp</groupId>
     <artifactId>PlayerBiomes</artifactId>
-    <version>6.0.1</version>
+    <version>6.0.2</version>
     
     <name>PlayerBiomes</name>
     <description>Plugin for Getting player biome using NMS through a PAPI placeholder</description>
@@ -22,7 +22,7 @@
         <dependency>
             <groupId>com.jeff-media.jefflib</groupId>
             <artifactId>jefflib</artifactId>
-            <version>14.2.2</version>
+            <version>14.2.3</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
