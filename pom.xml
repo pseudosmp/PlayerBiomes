@@ -4,10 +4,10 @@
     
     <groupId>com.pseudosmp</groupId>
     <artifactId>PlayerBiomes</artifactId>
-    <version>6.0.2</version>
+    <version>6.9.0-EOL</version>
     
     <name>PlayerBiomes</name>
-    <description>Plugin for Getting player biome using NMS through a PAPI placeholder</description>
+    <description>Plugin for getting the name of the biome the player is standing in, using NMS</description>
     <url>https://github.com/pseudosmp/PlayerBiomes</url>
     <inceptionYear>%year%</inceptionYear>
     
