@@ -3,11 +3,11 @@ package com.pseudosmp.PlayerBiomes;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 
-public class PlayerBiomesExpansion extends PlaceholderExpansion {
+public class PlaceholderAPIHandler extends PlaceholderExpansion {
 
     private final PlayerBiomes plugin;
 
-    public PlayerBiomesExpansion(PlayerBiomes plugin) {
+    public PlaceholderAPIHandler(PlayerBiomes plugin) {
         this.plugin = plugin;
     }
 

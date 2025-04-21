@@ -12,5 +12,5 @@ bstats_consent: true
 # Can be used for localisation
 messages:
     # IMPORTANT: '%s' is the biome name. Make sure it is in your final string somewhere.
-    user_whereami: "You are currently in the %s biome."
-    console_whereami: "This command can only be executed by a player."
+    user_whereami: "[PlayerBiomes] You are currently in the %s biome."
+    console_whereami: "[PlayerBiomes] This command can only be executed by a player."

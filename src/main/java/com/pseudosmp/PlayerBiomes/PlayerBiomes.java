@@ -74,7 +74,7 @@ public class PlayerBiomes extends JavaPlugin {
         }
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new PlayerBiomesExpansion(this).register();
+            new PlaceholderAPIHandler(this).register();
         } else {
             getLogger().warning("PlaceholderAPI is not available and thus placeholders will not be registered");
         }
