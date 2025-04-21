@@ -2,7 +2,7 @@ name: PlayerBiomes
 authors: [ Ilamparithi ]
 main: com.pseudosmp.PlayerBiomes.PlayerBiomes
 version: ${project.version}
-description: Plugin for Getting player biome using NMS
+description: Plugin for getting the name of the biome the player is standing in, using NMS
 api-version: "1.16"
 commands:
   whereami:
