@@ -43,6 +43,7 @@ public class PlayerBiomes extends JavaPlugin {
 
                 Object namespacedKeyObj = biome.getClass().getMethod("getKeyOrThrow").invoke(biome);
                 namespacedKey = (NamespacedKey) namespacedKeyObj;
+                System.out.println("[DEBUG] Using Modern Biome API - NamespacedKey: " + namespacedKey.toString());
 
             } catch (Throwable t) {
                 t.printStackTrace();
