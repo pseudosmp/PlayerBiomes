@@ -34,11 +34,11 @@ public class PlayerBiomes extends JavaPlugin {
                         .getMethod("getBiome")
                         .invoke(player.getPlayer().getLocation().getBlock());
 
-                Object namespacedKeyObj = biome.getClass().getMethod("getKeyOrThrow").invoke(biome);
+                Object namespacedKeyObj = biome.getClass().getMethod("getKey").invoke(biome);
                 return (NamespacedKey) namespacedKeyObj;
             } catch (Throwable t) {
                 t.printStackTrace();
-                return new NamespacedKey("minecraft", "unknown");
+                return NamespacedKey.minecraft("unknown");
             }
         } else {
             return BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation());

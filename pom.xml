@@ -4,7 +4,7 @@
     
     <groupId>com.pseudosmp</groupId>
     <artifactId>PlayerBiomes</artifactId>
-    <version>6.9.0-EOL</version>
+    <version>6.9.1-EOL</version>
     
     <name>PlayerBiomes</name>
     <description>Plugin for getting the name of the biome the player is standing in, using NMS</description>
