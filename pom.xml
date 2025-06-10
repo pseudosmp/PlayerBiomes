@@ -11,13 +11,6 @@
     <url>https://github.com/pseudosmp/PlayerBiomes</url>
     <inceptionYear>%year%</inceptionYear>
     
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>11</java.version>
-        <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
-        <config.version>${maven.build.timestamp}</config.version>
-    </properties>
-    
     <dependencies>
         <dependency>
             <groupId>com.jeff-media.jefflib</groupId>
@@ -65,11 +58,12 @@
     </repositories>
     
     <organization>
-        <name>The Pseudo Force</name>
-        <url>https://github.com/pseudoforceyt</url>
+        <name>The Pseudo Force SMP</name>
+        <url>https://github.com/pseudosmp</url>
     </organization>
     
     <build>
+        <finalName>PlayerBiomes</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -91,9 +85,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.4.2</version>
-                <configuration>
-                    <finalName>PlayerBiomes</finalName>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
