@@ -122,8 +122,8 @@ public class PlayerBiomes extends JavaPlugin {
                 return true;
             }
 
-            if (args.length == 0) {
-                if (sender instanceof Player) Bukkit.dispatchCommand(sender, "whatbiome");
+            if ((args.length == 0) && (sender instanceof Player)) {
+                Bukkit.dispatchCommand(sender, "whatbiome");
                 return true;
             }
 
