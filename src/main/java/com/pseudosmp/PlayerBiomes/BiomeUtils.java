@@ -68,15 +68,4 @@ public class BiomeUtils {
         int nameIndex = formattedBiome.indexOf(":") + 2;
         return formattedBiome.substring(nameIndex);
     }
-
-    // public static String getNameFromLocale(OfflinePlayer player) {
-    //     NamespacedKey namespacedKey = getPlayerBiomeKey(player);
-
-    //     if (!(PlayerBiomes.forceServerLocale)) {
-    //         String locale = player.getPlayer().getLocale();
-    //         String localizedBiomeName = PlayerBiomes.getInstance().getConfig().getString("localization." + namespacedKey.getKey() + "." + locale);
-    //     }
-
-    //     return namespacedKey.getKey();
-    // }
 }
