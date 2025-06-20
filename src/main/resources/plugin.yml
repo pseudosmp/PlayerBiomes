@@ -5,12 +5,21 @@ version: ${project.version}
 description: ${project.description}
 api-version: "1.16"
 commands:
-  whereami:
+  whatbiome:
     description: Displays the name of the biome the player is currently in.
-    usage: /<command>
-    permission: playerbiomes.command.whereami
+    usage: /whatbiome
+    permission: playerbiomes.command.whatbiome
+    aliases: [whereami]
+  playerbiomes:
+    description: Reloads the configuration of PlayerBiomes.
+    usage: /playerbiomes reload
+    permission: playerbiomes.command.reload
+    aliases: [pb]
 permissions:
-  playerbiomes.command.whereami:
-    description: Allows usage of the /whereami command
+  playerbiomes.command.whatbiome:
+    description: Allows usage of the /whatbiome command
     default: true
+  playerbiomes.command.reload:
+    description: Allows usage of the /playerbiomes reload command
+    default: op
 softdepend: [ PlaceholderAPI ]

@@ -1,7 +1,6 @@
 package com.pseudosmp.PlayerBiomes;
 
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -9,112 +8,127 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bstats.bukkit.Metrics;
-import com.jeff_media.jefflib.BiomeUtils;
+
 
 public class PlayerBiomes extends JavaPlugin {
 
-    private static Boolean biomeInterfaceCache = null;
-
-    public static boolean isModernBiomeAPI() {
-        if (biomeInterfaceCache != null) return biomeInterfaceCache;
-
-        try {
-            Class<?> biomeClass = Class.forName("org.bukkit.block.Biome");
-            biomeInterfaceCache = biomeClass.isInterface();
-            return biomeInterfaceCache;
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
-    }
-
-    public static NamespacedKey getPlayerBiomeKey(OfflinePlayer player) {
-        if (isModernBiomeAPI()) {
-            try {
-                Object biome = player.getPlayer().getLocation().getBlock().getClass()
-                        .getMethod("getBiome")
-                        .invoke(player.getPlayer().getLocation().getBlock());
-
-                Object namespacedKeyObj = biome.getClass().getMethod("getKey").invoke(biome);
-                return (NamespacedKey) namespacedKeyObj;
-            } catch (Throwable t) {
-                t.printStackTrace();
-                return NamespacedKey.minecraft("unknown");
-            }
-        } else {
-            return BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation());
-        }
-    }
-
-    public static String getBiomeFormatted(OfflinePlayer player) {
-        NamespacedKey namespacedKey = getPlayerBiomeKey(player);
-
-        String biomeNamespace = namespacedKey.getNamespace();
-        String biomeKey = namespacedKey.getKey();
-
-        String biome = biomeKey.replaceAll("[_.]", " ");
-        StringBuilder formattedBiome = new StringBuilder();
-
-        int findSlash = biome.lastIndexOf("/");
-        biome = biome.substring(findSlash + 1);
-
-        String[] words = biome.split("\\s");
-        for (String w : words) {
-            formattedBiome.append(w.substring(0, 1).toUpperCase()).append(w.substring(1)).append(" ");
-        }
-        formattedBiome.insert(0, biomeNamespace.substring(0, 1).toUpperCase() + biomeNamespace.substring(1) + ": ");
-        return formattedBiome.toString().trim();
-    }
+    private static boolean placeholderApiLoaded = false;
+    public static boolean forceServerLocale = false;
 
     @Override
     public void onEnable() {
         if (getConfig().getBoolean("bstats_consent", true)) {
             int pluginId = 17782;
+            @SuppressWarnings("unused")
             Metrics metrics = new Metrics(this, pluginId);
             getLogger().info("bstats for PlayerBiomes has been enabled. You can opt-out by disabling bstats in the plugin config.");
         }
 
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+        forceServerLocale = getConfig().getBoolean("force_server_locale", false);
+        placeholderApiLoaded = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
+        
+        if (placeholderApiLoaded) {
             new PlaceholderAPIHandler(this).register();
         } else {
             getLogger().warning("PlaceholderAPI is not available and thus placeholders will not be registered");
         }
 
         this.saveDefaultConfig();
-        this.getCommand("whereami").setExecutor(new WhereAmICommand(this));
-        getLogger().info("/whereami is now a valid question! (PlayerBiomes has been enabled)");
+        this.getCommand("whatbiome").setExecutor(new WhatBiomeCommand(this));
+        this.getCommand("playerbiomes").setExecutor(new PlayerBiomesCommand(this));
+        getLogger().info("/whatbiome is now a valid question! (PlayerBiomes has been enabled)");
     }
 
-    public class WhereAmICommand implements CommandExecutor {
+    private void sendUsage(CommandSender sender) {
+        boolean canReload = sender.hasPermission("playerbiomes.command.reload");
+        String usage = canReload
+            ? "[PlayerBiomes] Usage: /whatbiome | /playerbiomes reload"
+            : "[PlayerBiomes] Usage: /whatbiome";
+        sender.sendMessage(usage);
+    }
+    public class WhatBiomeCommand implements CommandExecutor {
         private final JavaPlugin plugin;
-        public WhereAmICommand(JavaPlugin plugin) {
+
+        public WhatBiomeCommand(JavaPlugin plugin) {
             this.plugin = plugin;
+        }
+
+        private String parseDefaultPlaceholders(String message, OfflinePlayer player) {
+            return message
+                .replace("{biome_formatted}", BiomeUtils.getBiomeFormatted(player))
+                .replace("{biome_name}", BiomeUtils.getBiomeName(player))
+                .replace("{biome_namespace}", BiomeUtils.getBiomeNamespace(player))
+                .replace("{biome_raw}", BiomeUtils.getPlayerBiomeKey(player).toString());
         }
 
         @Override
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
             if (!(sender instanceof Player)) {
-                String message = plugin.getConfig().getString("messages.console_whereami");
-                if (message == null) {
-                    getLogger().warning("The console message for /whereami is blank. Check your config!");
-                    message = "This command can only be executed by a player.";
-                }
+                String message = plugin.getConfig().getString("messages.console_whatbiome", "Console can use only /playerbiomes reload");
                 sender.sendMessage(message);
                 return true;
             }
 
-            OfflinePlayer player = (Player) sender;
-            String formattedBiome = getBiomeFormatted(player);
+            if (args.length == 0) {
+                Player player = (Player) sender;
+                String defaultMessage = "[PlayerBiomes] You are currently in the biome - {biome_formatted}.";
+                String message = plugin.getConfig().getString("messages.user_whatbiome", defaultMessage);
 
-            String message = plugin.getConfig().getString("messages.user_whereami");
-            if (message == null) {
-                getLogger().warning("The user message for /whereami is blank. Check your config!");
-                message = "You are currently in the %s biome.";
-            } else if (!message.contains("%s")) {
-                getLogger().warning("Format specifier '%s' not available in the player message. Please read instructions in the config properly!");
-                getLogger().warning("The player who executed the command will be shown the default message.");
-                message = "You are currently in the %s biome.";
+                // Warn if no placeholders found
+                if (
+                    !message.contains("{biome_formatted}") &&
+                    !message.contains("{biome_name}") &&
+                    !message.contains("{biome_namespace}") &&
+                    !message.contains("{biome_raw}")
+                ) {
+                    getLogger().warning("No biome placeholder found in the player message. Please read instructions in the config properly!");
+                    message = defaultMessage;
+                }
+
+                message = parseDefaultPlaceholders(message, player);
+
+                // Parse PAPI placeholders
+                if (placeholderApiLoaded) {
+                    message = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, message);
+                } 
+
+                player.sendMessage(message);
+                return true;
             }
-            player.getPlayer().sendMessage(String.format(message, formattedBiome));
+
+            // Any other argument: show usage
+            sendUsage(sender);
+            return true;
+        }
+    }
+    public class PlayerBiomesCommand implements CommandExecutor {
+        private final JavaPlugin plugin;
+
+        public PlayerBiomesCommand(JavaPlugin plugin) {
+            this.plugin = plugin;
+        }
+
+        @Override
+        public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+            if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
+                if (sender.hasPermission("playerbiomes.command.reload")) {
+                    plugin.reloadConfig();
+                    forceServerLocale = plugin.getConfig().getBoolean("force_server_locale", false);
+                    sender.sendMessage("[PlayerBiomes] PlayerBiomes configuration reloaded.");
+                    getLogger().info("PlayerBiomes configuration reloaded.");
+                } else {
+                    sendUsage(sender);
+                }
+                return true;
+            }
+
+            if ((args.length == 0) && (sender instanceof Player)) {
+                Bukkit.dispatchCommand(sender, "whatbiome");
+                return true;
+            }
+
+            // Any other argument: show usage
+            sendUsage(sender);
             return true;
         }
     }
