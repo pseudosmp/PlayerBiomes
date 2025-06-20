@@ -32,18 +32,13 @@ public class PlaceholderAPIHandler extends PlaceholderExpansion {
 
         switch (identifier.toLowerCase()) {
             case "biome_raw":
-                return PlayerBiomes.getPlayerBiomeKey(player).toString();
-            case "biome_namespace": {
-                String ns = PlayerBiomes.getPlayerBiomeKey(player).getNamespace();
-                return ns.substring(0, 1).toUpperCase() + ns.substring(1);
-            }
-            case "biome_name": {
-                String formattedBiome = PlayerBiomes.getBiomeFormatted(player);
-                int nameIndex = formattedBiome.indexOf(":") + 2;
-                return formattedBiome.substring(nameIndex);
-            }
+                return BiomeUtils.getPlayerBiomeKey(player).toString();
+            case "biome_namespace":
+                return BiomeUtils.getBiomeNamespace(player);
+            case "biome_name":
+                return BiomeUtils.getBiomeName(player);
             case "biome_formatted":
-                return PlayerBiomes.getBiomeFormatted(player);
+                return BiomeUtils.getBiomeFormatted(player);
             default:
                 return null;
         }
