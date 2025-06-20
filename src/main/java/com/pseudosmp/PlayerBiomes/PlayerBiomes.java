@@ -60,9 +60,9 @@ public class PlayerBiomes extends JavaPlugin {
                 return true;
             }
 
-            Player player = (Player) sender;
-
             if (args.length == 0) {
+                Player player = (Player) sender;
+
                 String defaultMessage = "[PlayerBiomes] You are currently in the biome - {biome_formatted}.";
 
                 String message = plugin.getConfig().getString("messages.user_whatbiome", defaultMessage);
@@ -88,23 +88,23 @@ public class PlayerBiomes extends JavaPlugin {
             }
 
             if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
-                if (player.hasPermission("playerbiomes.command.reload")) {
+                if (sender.hasPermission("playerbiomes.command.reload")) {
                     plugin.reloadConfig();
                     forceServerLocale = plugin.getConfig().getBoolean("force_server_locale", false);
-                    player.sendMessage("PlayerBiomes configuration reloaded.");
+                    sender.sendMessage("PlayerBiomes configuration reloaded.");
                     getLogger().info("PlayerBiomes configuration reloaded.");
                 } else {
-                    player.sendMessage(command.getUsage());
+                    sender.sendMessage(command.getUsage());
                 }
                 return true;
             }
 
             // Usage message
-            boolean canReload = player.hasPermission("playerbiomes.command.reload");
+            boolean canReload = sender.hasPermission("playerbiomes.command.reload");
             String usage = canReload
                 ? command.getUsage() + " | /playerbiomes reload"
                 : command.getUsage();
-            player.sendMessage(usage);
+            sender.sendMessage(usage);
             return true;
         }
     }
