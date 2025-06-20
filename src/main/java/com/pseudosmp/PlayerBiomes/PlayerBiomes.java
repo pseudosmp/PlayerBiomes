@@ -54,34 +54,57 @@ public class PlayerBiomes extends JavaPlugin {
 
         @Override
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-            if (!(sender instanceof Player)) {
+            if (!(sender instanceof Player) && args.length == 0) {
                 String message = plugin.getConfig().getString("messages.console_whatbiome", "This command can only be executed by a player.");
                 sender.sendMessage(message);
                 return true;
             }
 
-            OfflinePlayer player = (Player) sender;
-            String defaultMessage = "[PlayerBiomes] You are currently in the biome - {biome_formatted}.";
+            Player player = (Player) sender;
 
-            String message = plugin.getConfig().getString("messages.user_whatbiome", defaultMessage);
+            if (args.length == 0) {
+                String defaultMessage = "[PlayerBiomes] You are currently in the biome - {biome_formatted}.";
 
-            if (
-                !message.contains("{biome_formatted}") &&
-                !message.contains("{biome_name}") &&
-                !message.contains("{biome_namespace}") &&
-                !message.contains("{biome_raw}")
-            ) {
-                getLogger().warning("No biome placeholder found in the player message. Please read instructions in the config properly!");
-                message = defaultMessage;
+                String message = plugin.getConfig().getString("messages.user_whatbiome", defaultMessage);
+
+                if (
+                    !message.contains("{biome_formatted}") &&
+                    !message.contains("{biome_name}") &&
+                    !message.contains("{biome_namespace}") &&
+                    !message.contains("{biome_raw}")
+                ) {
+                    getLogger().warning("No biome placeholder found in the player message. Please read instructions in the config properly!");
+                    message = defaultMessage;
+                }
+
+                message = parseDefaultPlaceholders(message, player);
+
+                if (placeholderApiLoaded) {
+                    message = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player.getPlayer(), message);
+                }
+
+                player.getPlayer().sendMessage(message);
+                return true;
             }
 
-            message = parseDefaultPlaceholders(message, player);
-
-            if (placeholderApiLoaded) {
-                message = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player.getPlayer(), message);
+            if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
+                if (player.hasPermission("playerbiomes.command.reload")) {
+                    plugin.reloadConfig();
+                    forceServerLocale = plugin.getConfig().getBoolean("force_server_locale", false);
+                    player.sendMessage("PlayerBiomes configuration reloaded.");
+                    getLogger().info("PlayerBiomes configuration reloaded.");
+                } else {
+                    player.sendMessage(command.getUsage());
+                }
+                return true;
             }
 
-            player.getPlayer().sendMessage(message);
+            // Usage message
+            boolean canReload = player.hasPermission("playerbiomes.command.reload");
+            String usage = canReload
+                ? command.getUsage() + " | /playerbiomes reload"
+                : command.getUsage();
+            player.sendMessage(usage);
             return true;
         }
     }
