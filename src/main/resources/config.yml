@@ -25,4 +25,4 @@ messages:
     # Use atleast one of the built-in placeholders in the message to suppress the warning:
     # "No biome placeholder found in the player message."
     user_whatbiome: "[PlayerBiomes] You are currently in the biome - {biome_formatted}."
-    console_whatbiome: "[PlayerBiomes] This command can only be executed by a player."
+    console_whatbiome: "[PlayerBiomes] Console can use only /playerbiomes reload"

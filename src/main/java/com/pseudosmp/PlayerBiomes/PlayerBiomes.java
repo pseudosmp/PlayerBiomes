@@ -34,13 +34,22 @@ public class PlayerBiomes extends JavaPlugin {
         }
 
         this.saveDefaultConfig();
-        this.getCommand("whatbiome").setExecutor(new PlayerBiomesCommand(this));
+        this.getCommand("whatbiome").setExecutor(new WhatBiomeCommand(this));
+        this.getCommand("playerbiomes").setExecutor(new PlayerBiomesCommand(this));
         getLogger().info("/whatbiome is now a valid question! (PlayerBiomes has been enabled)");
     }
 
-    public class PlayerBiomesCommand implements CommandExecutor {
+    private void sendUsage(CommandSender sender) {
+        boolean canReload = sender.hasPermission("playerbiomes.command.reload");
+        String usage = canReload
+            ? "[PlayerBiomes] Usage: /whatbiome | /playerbiomes reload"
+            : "[PlayerBiomes] Usage: /whatbiome";
+        sender.sendMessage(usage);
+    }
+    public class WhatBiomeCommand implements CommandExecutor {
         private final JavaPlugin plugin;
-        public PlayerBiomesCommand(JavaPlugin plugin) {
+
+        public WhatBiomeCommand(JavaPlugin plugin) {
             this.plugin = plugin;
         }
 
@@ -54,19 +63,18 @@ public class PlayerBiomes extends JavaPlugin {
 
         @Override
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-            if (!(sender instanceof Player) && args.length == 0) {
-                String message = plugin.getConfig().getString("messages.console_whatbiome", "This command can only be executed by a player.");
+            if (!(sender instanceof Player)) {
+                String message = plugin.getConfig().getString("messages.console_whatbiome", "Console can use only /playerbiomes reload");
                 sender.sendMessage(message);
                 return true;
             }
 
             if (args.length == 0) {
                 Player player = (Player) sender;
-
                 String defaultMessage = "[PlayerBiomes] You are currently in the biome - {biome_formatted}.";
-
                 String message = plugin.getConfig().getString("messages.user_whatbiome", defaultMessage);
 
+                // Warn if no placeholders found
                 if (
                     !message.contains("{biome_formatted}") &&
                     !message.contains("{biome_name}") &&
@@ -79,32 +87,48 @@ public class PlayerBiomes extends JavaPlugin {
 
                 message = parseDefaultPlaceholders(message, player);
 
+                // Parse PAPI placeholders
                 if (placeholderApiLoaded) {
-                    message = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player.getPlayer(), message);
-                }
+                    message = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, message);
+                } 
 
-                player.getPlayer().sendMessage(message);
+                player.sendMessage(message);
                 return true;
             }
 
+            // Any other argument: show usage
+            sendUsage(sender);
+            return true;
+        }
+    }
+    public class PlayerBiomesCommand implements CommandExecutor {
+        private final JavaPlugin plugin;
+
+        public PlayerBiomesCommand(JavaPlugin plugin) {
+            this.plugin = plugin;
+        }
+
+        @Override
+        public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
             if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
                 if (sender.hasPermission("playerbiomes.command.reload")) {
                     plugin.reloadConfig();
                     forceServerLocale = plugin.getConfig().getBoolean("force_server_locale", false);
-                    sender.sendMessage("PlayerBiomes configuration reloaded.");
+                    sender.sendMessage("[PlayerBiomes] PlayerBiomes configuration reloaded.");
                     getLogger().info("PlayerBiomes configuration reloaded.");
                 } else {
-                    sender.sendMessage(command.getUsage());
+                    sendUsage(sender);
                 }
                 return true;
             }
 
-            // Usage message
-            boolean canReload = sender.hasPermission("playerbiomes.command.reload");
-            String usage = canReload
-                ? command.getUsage() + " | /playerbiomes reload"
-                : command.getUsage();
-            sender.sendMessage(usage);
+            if (args.length == 0) {
+                if (sender instanceof Player) Bukkit.dispatchCommand(sender, "whatbiome");
+                return true;
+            }
+
+            // Any other argument: show usage
+            sendUsage(sender);
             return true;
         }
     }
