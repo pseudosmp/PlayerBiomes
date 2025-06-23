@@ -4,10 +4,13 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.net.URL;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -31,6 +34,38 @@ public class BiomeUtils {
         }
     }
 
+    public static boolean ensureLocaleFile(String locale, JavaPlugin plugin) {
+        File langDir = new File(plugin.getDataFolder(), "lang");
+        if (!langDir.exists()) langDir.mkdirs();
+        File localeFile = new File(langDir, locale + ".json");
+        if (localeFile.exists()) return true;
+
+        if (!plugin.getConfig().getBoolean("auto_download_locale", false)) {
+            String urlTemplate = plugin.getConfig().getString("locale_download_url");
+            String version = plugin.getServer().getBukkitVersion().split("-")[0]; // e.g., "1.20.4"
+            String urlString = urlTemplate
+                    .replace("{version}", version)
+                    .replace("{locale}", locale);
+
+            try (BufferedInputStream in = new BufferedInputStream(new URL(urlString).openStream());
+                FileOutputStream fileOutputStream = new FileOutputStream(localeFile)) {
+                byte[] dataBuffer = new byte[1024];
+                int bytesRead;
+                plugin.getLogger().info("Downloading locale file: " + urlString);
+                while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
+                    fileOutputStream.write(dataBuffer, 0, bytesRead);
+                }
+                plugin.getLogger().info("Download complete! " + localeFile.getAbsolutePath());
+                localeCache.remove(locale); // Clear cache for this locale
+                return true;
+            } catch (Exception e) {
+                plugin.getLogger().warning("Failed to download locale file: " + urlString);
+                e.printStackTrace();
+                return false;
+            }
+        } else return false;
+    }
+
     public static NamespacedKey getPlayerBiomeKey(OfflinePlayer player) {
         if (isModernBiomeAPI()) {
             try {
@@ -51,6 +86,7 @@ public class BiomeUtils {
     }
 
     public static String getBiomeTranslation(NamespacedKey key, String locale) {
+        if (!ensureLocaleFile(locale, plugin)) return null;
         Map<String, String> translations = localeCache.computeIfAbsent(locale, l -> {
             File file = new File(plugin.getDataFolder(), "lang/" + l + ".json");
             if (!file.exists()) return null;

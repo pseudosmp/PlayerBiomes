@@ -14,6 +14,15 @@ server_locale: en_us
 # Setting this to true will show the biome name in the server's locale to all players
 force_server_locale: true
 
+# If a locale file is not found, download it automatically from the link configured below
+auto_download_locale: false
+
+# You can either extract the assets from the client jar and paste it into
+# plugins/PlayerBiomes/lang/<locale>.json, or you can set a link to a remote server
+# that hosts them as raw json files in the configured path:
+# {version} - Server's version, {locale} - Locale to fetch
+locale_download_url: https://assets.mcasset.cloud/{version}/assets/minecraft/lang/{locale}.json
+
 # Messages that appear when you execute the /whereami command
 # Can be used for localisation
 messages:
