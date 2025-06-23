@@ -12,7 +12,7 @@ bstats_consent: true
 server_locale: en_us
 
 # Setting this to true will show the biome name in the server's locale to all players
-force_server_locale: false
+force_server_locale: true
 
 # Messages that appear when you execute the /whereami command
 # Can be used for localisation

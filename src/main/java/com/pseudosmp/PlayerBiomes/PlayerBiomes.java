@@ -15,6 +15,10 @@ public class PlayerBiomes extends JavaPlugin {
     private static boolean placeholderApiLoaded = false;
     public static boolean forceServerLocale = false;
 
+    public static PlayerBiomes getInstance() {
+        return JavaPlugin.getPlugin(PlayerBiomes.class);
+    }
+
     @Override
     public void onEnable() {
         if (getConfig().getBoolean("bstats_consent", true)) {
