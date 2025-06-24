@@ -15,6 +15,7 @@ server_locale: en_us
 force_server_locale: true
 
 # If a locale file is not found, download it automatically from the link configured below
+# By setting this to true, you agree to the configured site's terms of service.
 auto_download_locale: false
 
 # You can either extract the assets from the client jar and paste it into

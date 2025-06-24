@@ -38,22 +38,32 @@ public class BiomeUtils {
         File langDir = new File(plugin.getDataFolder(), "lang");
         if (!langDir.exists()) langDir.mkdirs();
         File localeFile = new File(langDir, locale + ".json");
+        File tmpFile = new File(langDir, locale + ".json.tmp");
         if (localeFile.exists()) return true;
 
         if (!plugin.getConfig().getBoolean("auto_download_locale", false)) {
             String urlTemplate = plugin.getConfig().getString("locale_download_url");
-            String version = plugin.getServer().getBukkitVersion().split("-")[0]; // e.g., "1.20.4"
+            String version = plugin.getServer().getBukkitVersion().split("-")[0];
+            // Remove .0 if version string has it at the end
+            if (version.endsWith(".0")) version = version.substring(0, version.length() - 2);
             String urlString = urlTemplate
                     .replace("{version}", version)
                     .replace("{locale}", locale);
 
             try (BufferedInputStream in = new BufferedInputStream(new URL(urlString).openStream());
-                FileOutputStream fileOutputStream = new FileOutputStream(localeFile)) {
+                FileOutputStream fileOutputStream = new FileOutputStream(tmpFile)) {
                 byte[] dataBuffer = new byte[1024];
                 int bytesRead;
                 plugin.getLogger().info("Downloading locale file: " + urlString);
                 while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
                     fileOutputStream.write(dataBuffer, 0, bytesRead);
+                }
+                // Move .tmp to .json
+                if (localeFile.exists()) localeFile.delete();
+                if (!tmpFile.renameTo(localeFile)) {
+                    plugin.getLogger().warning("Failed to rename " + tmpFile.getName() + " to " + localeFile.getName());
+                    plugin.getLogger().warning("Please rename it manually!");
+                    return false;
                 }
                 plugin.getLogger().info("Download complete! " + localeFile.getAbsolutePath());
                 localeCache.remove(locale); // Clear cache for this locale
@@ -61,6 +71,7 @@ public class BiomeUtils {
             } catch (Exception e) {
                 plugin.getLogger().warning("Failed to download locale file: " + urlString);
                 e.printStackTrace();
+                if (tmpFile.exists()) tmpFile.delete();
                 return false;
             }
         } else return false;
