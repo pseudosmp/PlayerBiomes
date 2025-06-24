@@ -109,10 +109,10 @@ public class ConfigUtils {
     }
 
     private boolean isOlderConfigVersion() {
-        String configVersion = plugin.getConfig().getString("common.configVersion", "0.0.0");
+        String configVersion = plugin.getConfig().getString("configVersion", "0.0.0");
         InputStream inputStream = plugin.getResource("config.yml");
         YamlConfiguration resourceConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(inputStream));
-        String pluginVersion = resourceConfig.getString("common.configVersion", "0.0.0");
+        String pluginVersion = resourceConfig.getString("configVersion", "0.0.0");
 
         String[] curr = configVersion.split("\\.");
         String[] target = pluginVersion.split("\\.");
