@@ -146,13 +146,5 @@
                 <version>3.5.3</version>
             </extension>
         </extensions>
-    </build>
-    
-    <pluginRepositories>
-        <pluginRepository>
-            <id>maven-snapshots</id>
-            <url>https://repository.apache.org/content/repositories/snapshots/</url>
-        </pluginRepository>
-    </pluginRepositories>
-    
+    </build>   
 </project>
