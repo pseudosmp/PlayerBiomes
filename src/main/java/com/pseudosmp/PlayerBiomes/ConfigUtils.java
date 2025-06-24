@@ -31,6 +31,7 @@ public class ConfigUtils {
     public String serverLocale;
     public boolean bstatsConsent; 
     public boolean forceServerLocale;
+    public boolean localeCaseInsensitive;
     public boolean autoDownloadLocale;
 
     private Map<String, Object> messages = Collections.emptyMap();
@@ -52,8 +53,23 @@ public class ConfigUtils {
             serverLocale = config.getString("server_locale", "en_us");
             bstatsConsent = config.getBoolean("bstats_consent", true); // Default to true, can be disabled in config.yml
             forceServerLocale = config.getBoolean("force_server_locale", true);
+            localeCaseInsensitive = config.getBoolean("locale_case_insensitive", true);
             autoDownloadLocale = config.getBoolean("auto_download_locale", false);
             messages = config.getConfigurationSection("messages").getValues(true);
+
+            String user_whatbiome = getMessage("user_whatbiome");
+            String defaultMessage = "[PlayerBiomes] You are currently in the biome - {biome_formatted}.";
+            // Warn if no placeholders found
+            if (
+                !user_whatbiome.contains("{biome_formatted}") &&
+                !user_whatbiome.contains("{biome_name}") &&
+                !user_whatbiome.contains("{biome_namespace}") &&
+                !user_whatbiome.contains("{biome_raw}")
+            ) {
+                plugin.getLogger().warning("No biome placeholder found in the player message. Please read instructions in the config properly!");
+                // change messages.user_whatbiome to default
+                messages.put("user_whatbiome", defaultMessage);
+            }
 
             return true;
         } catch (Exception e) {
@@ -116,7 +132,9 @@ public class ConfigUtils {
         if (!langDir.exists()) langDir.mkdirs();
         File localeFile = new File(langDir, locale + ".json");
         File tmpFile = new File(langDir, locale + ".json.tmp");
-        if (localeFile.exists()) return;
+        if (localeFile.exists()) {
+            return;
+        }
 
         localeDownloadInProgress.put(locale, true);
         Bukkit.getScheduler().runTaskAsynchronously((Plugin) plugin, () -> {
@@ -127,7 +145,7 @@ public class ConfigUtils {
                     .replace("{version}", version)
                     .replace("{locale}", locale);
             try {
-                plugin.getLogger().info("Downloading locale file asynchronously: " + urlString);
+                plugin.getLogger().info("Downloading locale file: " + urlString);
                 try (BufferedInputStream in = new BufferedInputStream(new URL(urlString).openStream());
                      FileOutputStream fileOutputStream = new FileOutputStream(tmpFile)) {
                     byte[] dataBuffer = new byte[1024];
@@ -159,12 +177,10 @@ public class ConfigUtils {
 
     public String getBiomeTranslation(NamespacedKey key, String locale) {
         if (autoDownloadLocale) {
+            downloadLocaleFile(locale);
             // Download in progress, check back later
-            if (localeDownloadInProgress.getOrDefault(locale, false)) return null;
-
-            if (!localeCache.containsKey(locale)) {
-                downloadLocaleFile(locale);
-                return null; // Again, download in progress, check back later
+            if (localeDownloadInProgress.getOrDefault(locale, false)) {
+                return null;
             }
         }
         Map<String, String> translations = localeCache.computeIfAbsent(locale, l -> {
@@ -177,7 +193,9 @@ public class ConfigUtils {
                 return null;
             }
         });
-        if (translations == null) return null;
+        if (translations == null) {
+            return null;
+        }
         String translationKey = "biome." + key.getNamespace() + "." + key.getKey();
         return translations.get(translationKey);
     }

@@ -43,10 +43,13 @@ public class BiomeUtils {
         NamespacedKey key = getPlayerBiomeKey(player);
         String biomeNamespace = key.getNamespace();
         String locale;
-        if (PlayerBiomes.forceServerLocale) {
+        if (config.forceServerLocale) {
             locale = config.serverLocale;
         } else {
             locale = player.getPlayer() != null ? player.getPlayer().getLocale() : "en_us";
+        }
+        if (config.localeCaseInsensitive) {
+            locale = locale.toLowerCase();
         }
         String translation = config.getBiomeTranslation(key, locale);
         if (translation != null) {
