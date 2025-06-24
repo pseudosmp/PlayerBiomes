@@ -39,6 +39,11 @@ public class PlaceholderAPIHandler extends PlaceholderExpansion {
                 return BiomeUtils.getBiomeName(player);
             case "biome_formatted":
                 return BiomeUtils.getBiomeFormatted(player);
+            // forcefully get from fallback method
+            case "biome_name_english":
+                return BiomeUtils.getBiomeNameFallback(player);
+            case "biome_formatted_english":
+                return BiomeUtils.getBiomeFormattedFallback(player);
             default:
                 return null;
         }

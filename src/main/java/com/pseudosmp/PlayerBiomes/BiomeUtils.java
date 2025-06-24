@@ -90,4 +90,11 @@ public class BiomeUtils {
         int nameIndex = formattedBiome.indexOf(":") + 2;
         return formattedBiome.substring(nameIndex);
     }
+
+    // Technically the above function falls back to the original method by default, this is here to return the placeholder
+    public static String getBiomeNameFallback(OfflinePlayer player) {
+        String formattedBiome = getBiomeFormattedFallback(player);
+        int nameIndex = formattedBiome.indexOf(":") + 2;
+        return formattedBiome.substring(nameIndex);
+    }
 }
