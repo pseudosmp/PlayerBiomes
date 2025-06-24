@@ -56,6 +56,7 @@ public class ConfigUtils {
             localeCaseInsensitive = config.getBoolean("locale_case_insensitive", true);
             autoDownloadLocale = config.getBoolean("auto_download_locale", false);
             messages = config.getConfigurationSection("messages").getValues(true);
+            localeCache.clear(); // Clear cache on reload
 
             String user_whatbiome = getMessage("user_whatbiome");
             String defaultMessage = "[PlayerBiomes] You are currently in the biome - {biome_formatted}.";
