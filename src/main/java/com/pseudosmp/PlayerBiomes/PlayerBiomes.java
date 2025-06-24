@@ -14,6 +14,7 @@ public class PlayerBiomes extends JavaPlugin {
 
     private static boolean placeholderApiLoaded = false;
     public static boolean forceServerLocale = false;
+    public static ConfigUtils config;
 
     public static PlayerBiomes getInstance() {
         return JavaPlugin.getPlugin(PlayerBiomes.class);
@@ -21,14 +22,14 @@ public class PlayerBiomes extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        if (getConfig().getBoolean("bstats_consent", true)) {
+        config = new ConfigUtils(this);
+        if (config.bstatsConsent) {
             int pluginId = 17782;
             @SuppressWarnings("unused")
             Metrics metrics = new Metrics(this, pluginId);
             getLogger().info("bstats for PlayerBiomes has been enabled. You can opt-out by disabling bstats in the plugin config.");
         }
 
-        forceServerLocale = getConfig().getBoolean("force_server_locale", false);
         placeholderApiLoaded = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
         
         if (placeholderApiLoaded) {
@@ -116,10 +117,14 @@ public class PlayerBiomes extends JavaPlugin {
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
             if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
                 if (sender.hasPermission("playerbiomes.command.reload")) {
-                    plugin.reloadConfig();
-                    forceServerLocale = plugin.getConfig().getBoolean("force_server_locale", false);
-                    sender.sendMessage("[PlayerBiomes] PlayerBiomes configuration reloaded.");
-                    getLogger().info("PlayerBiomes configuration reloaded.");
+                    try {
+                        plugin.reloadConfig();
+                        if (sender instanceof Player) sender.sendMessage("[PlayerBiomes] PlayerBiomes configuration reloaded.");
+                        getLogger().info("PlayerBiomes configuration reloaded.");
+                    } catch (Exception e) {
+                        if (sender instanceof Player) sender.sendMessage("[PlayerBiomes] Failed to reload configuration.");
+                        getLogger().severe("Failed to reload PlayerBiomes configuration: " + e.getMessage());
+                    }
                 } else {
                     sendUsage(sender);
                 }
