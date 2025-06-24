@@ -133,11 +133,14 @@ public class ConfigUtils {
         if (!langDir.exists()) langDir.mkdirs();
         File localeFile = new File(langDir, locale + ".json");
         File tmpFile = new File(langDir, locale + ".json.tmp");
-        if (localeFile.exists()) {
-            return;
+
+        synchronized (localeDownloadInProgress) {
+            if (localeFile.exists() || localeDownloadInProgress.getOrDefault(locale, false)) {
+                return;
+            }
+            localeDownloadInProgress.put(locale, true);
         }
 
-        localeDownloadInProgress.put(locale, true);
         Bukkit.getScheduler().runTaskAsynchronously((Plugin) plugin, () -> {
             String urlTemplate = PlayerBiomes.config.downloadUrl;
             String version = plugin.getServer().getBukkitVersion().split("-")[0];
