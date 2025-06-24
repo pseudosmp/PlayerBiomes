@@ -80,7 +80,7 @@ Inside the `plugins/PlayerBiomes/` folder, a folder named `lang` can be created 
 
 Support and Feature Requests in [SpigotMC Resource Discussion Tab](https://www.spigotmc.org/threads/playerbiomes-1-16-2.592358/) / [Discord](https://dsc.gg/pseudoforceyt) only! Do NOT use the issues tab for this.
 
-Thanks [@mfnalex](https://github.com/mfnalex/) and [@RoughlyUnderscore](https://github.com/RoughlyUnderscore) for helping with this plugin! Thanks to @si6gma (Discord) for help with string manipulation (< 6.0.0)!
+Thanks [@mfnalex](https://github.com/mfnalex/) and [@RoughlyUnderscore](https://github.com/RoughlyUnderscore) for helping with the initial version of this plugin! Thanks to @si6gma (Discord) for help with string manipulation (< 6.0.0)!
 
 The plugin utilizes the [JeffLib](https://github.com/JEFF-Media-GbR/JeffLib) library for getting the biome namespaced key for game versions older than 1.19.3.
 
