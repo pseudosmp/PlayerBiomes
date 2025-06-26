@@ -4,6 +4,8 @@
 - Get the player's biome name formatted in various ways using **PlaceholderAPI placeholders**
 - Gives you the exact same name that the client sees which means it supports **custom biomes (datapacks like Terralith, Incendium, etc.)**
 
+![image](https://github.com/user-attachments/assets/56b59b53-6a60-466f-b182-1566a60c344e)
+
 ## Commands
 
 #### `/playerbiomes reload` (alias `/pb reload`):
