@@ -13,7 +13,7 @@ public class PlaceholderAPIHandler extends PlaceholderExpansion {
 
     @Override
     public String getIdentifier() {
-        return "playerbiomes";
+        return plugin.getName().toLowerCase();
     }
 
     @Override
@@ -24,6 +24,11 @@ public class PlaceholderAPIHandler extends PlaceholderExpansion {
     @Override
     public String getVersion() {
         return plugin.getDescription().getVersion();
+    }
+
+    @Override
+    public boolean persist() {
+        return true;
     }
 
     @Override

@@ -4,6 +4,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.pseudosmp.PlayerBiomes.PlayerBiomes.PlayerBiomesCommand;
+import com.pseudosmp.PlayerBiomes.PlayerBiomes.WhatBiomeCommand;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -11,9 +15,6 @@ import org.bstats.bukkit.Metrics;
 
 
 public class PlayerBiomes extends JavaPlugin {
-
-    private static boolean placeholderApiLoaded = false;
-    public static boolean forceServerLocale = false;
     public static ConfigUtils config;
 
     public static PlayerBiomes getInstance() {
@@ -30,10 +31,8 @@ public class PlayerBiomes extends JavaPlugin {
             Metrics metrics = new Metrics(this, pluginId);
             getLogger().info("bstats for PlayerBiomes has been enabled. You can opt-out by disabling bstats in the plugin config.");
         }
-
-        placeholderApiLoaded = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
         
-        if (placeholderApiLoaded) {
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             new PlaceholderAPIHandler(this).register();
         } else {
             getLogger().warning("PlaceholderAPI is not available and thus placeholders will not be registered");
