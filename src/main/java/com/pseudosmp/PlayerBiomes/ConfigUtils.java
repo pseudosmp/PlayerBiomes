@@ -33,6 +33,7 @@ public class ConfigUtils {
     public boolean forceServerLocale;
     public boolean localeCaseInsensitive;
     public boolean autoDownloadLocale;
+    public boolean placeholderApiLoaded;
 
     private Map<String, Object> messages = Collections.emptyMap();
     private static final Map<String, Boolean> localeDownloadInProgress = new HashMap<>();
@@ -55,6 +56,7 @@ public class ConfigUtils {
             forceServerLocale = config.getBoolean("force_server_locale", true);
             localeCaseInsensitive = config.getBoolean("locale_case_insensitive", true);
             autoDownloadLocale = config.getBoolean("auto_download_locale", false);
+            placeholderApiLoaded = Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI");
             messages = config.getConfigurationSection("messages").getValues(true);
             localeCache.clear(); // Clear cache on reload
 

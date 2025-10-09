@@ -5,9 +5,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.pseudosmp.PlayerBiomes.PlayerBiomes.PlayerBiomesCommand;
-import com.pseudosmp.PlayerBiomes.PlayerBiomes.WhatBiomeCommand;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -32,7 +29,7 @@ public class PlayerBiomes extends JavaPlugin {
             getLogger().info("bstats for PlayerBiomes has been enabled. You can opt-out by disabling bstats in the plugin config.");
         }
         
-        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+        if (config.placeholderApiLoaded) {
             new PlaceholderAPIHandler(this).register();
         } else {
             getLogger().warning("PlaceholderAPI is not available and thus placeholders will not be registered");
@@ -77,7 +74,7 @@ public class PlayerBiomes extends JavaPlugin {
                 message = parseDefaultPlaceholders(message, player);
 
                 // Parse PAPI placeholders
-                if (placeholderApiLoaded) {
+                if (config.placeholderApiLoaded) {
                     message = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, message);
                 } 
 
