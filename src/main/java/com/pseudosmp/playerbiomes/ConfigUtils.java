@@ -33,6 +33,7 @@ public class ConfigUtils {
     public boolean forceServerLocale;
     public boolean localeCaseInsensitive;
     public boolean autoDownloadLocale;
+    public boolean placeholderApiLoaded;
 
     private Map<String, Object> messages = Collections.emptyMap();
     private static final Map<String, Boolean> localeDownloadInProgress = new HashMap<>();
@@ -56,6 +57,7 @@ public class ConfigUtils {
             localeCaseInsensitive = config.getBoolean("locale_case_insensitive", true);
             autoDownloadLocale = config.getBoolean("auto_download_locale", false);
             messages = config.getConfigurationSection("messages").getValues(true);
+            placeholderApiLoaded = plugin.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI");
             localeCache.clear(); // Clear cache on reload
 
             String user_whatbiome = getMessage("user_whatbiome");
