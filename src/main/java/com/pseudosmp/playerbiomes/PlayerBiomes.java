@@ -1,12 +1,12 @@
-package com.pseudosmp.PlayerBiomes;
+package com.pseudosmp.playerbiomes;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.pseudosmp.PlayerBiomes.PlayerBiomes.PlayerBiomesCommand;
-import com.pseudosmp.PlayerBiomes.PlayerBiomes.WhatBiomeCommand;
+import com.pseudosmp.playerbiomes.PlayerBiomes.PlayerBiomesCommand;
+import com.pseudosmp.playerbiomes.PlayerBiomes.WhatBiomeCommand;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -51,6 +51,8 @@ public class PlayerBiomes extends JavaPlugin {
             : "[PlayerBiomes] Usage: /whatbiome";
         sender.sendMessage(usage);
     }
+
+    
     public class WhatBiomeCommand implements CommandExecutor {
         public WhatBiomeCommand(JavaPlugin plugin) {}
 
@@ -90,6 +92,8 @@ public class PlayerBiomes extends JavaPlugin {
             return true;
         }
     }
+
+
     public class PlayerBiomesCommand implements CommandExecutor {
         public PlayerBiomesCommand(JavaPlugin plugin) {}
 

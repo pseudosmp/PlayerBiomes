@@ -1,42 +1,16 @@
-package com.pseudosmp.PlayerBiomes;
+package com.pseudosmp.playerbiomes;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
 
+import com.pseudosmp.playerbiomes.nms.Handler;
+
 public class BiomeUtils {
-    private static Boolean biomeInterfaceCache = null;
 
     private static ConfigUtils config = PlayerBiomes.config;
 
-    public static boolean isModernBiomeAPI() {
-        if (biomeInterfaceCache != null) return biomeInterfaceCache;
-
-        try {
-            Class<?> biomeClass = Class.forName("org.bukkit.block.Biome");
-            biomeInterfaceCache = biomeClass.isInterface();
-            return biomeInterfaceCache;
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
-    }
-
     public static NamespacedKey getPlayerBiomeKey(OfflinePlayer player) {
-        if (isModernBiomeAPI()) {
-            try {
-                Object biome = player.getPlayer().getLocation().getBlock().getClass()
-                        .getMethod("getBiome")
-                        .invoke(player.getPlayer().getLocation().getBlock());
-
-                Object namespacedKeyObj = biome.getClass().getMethod("getKey").invoke(biome);
-                return (NamespacedKey) namespacedKeyObj;
-            } catch (Throwable t) {
-                t.printStackTrace();
-                return NamespacedKey.minecraft("unknown");
-            }
-        } else {
-            // Use the original jefflib BiomeUtils for legacy
-            return com.jeff_media.jefflib.BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation());
-        }
+        return Handler.getPlayerBiomeKey(player);
     }
 
     public static String getBiomeFormatted(OfflinePlayer player) {

@@ -13,12 +13,6 @@
     
     <dependencies>
         <dependency>
-            <groupId>com.jeff-media.jefflib</groupId>
-            <artifactId>jefflib</artifactId>
-            <version>14.2.3</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
             <version>3.0.2</version>
@@ -42,10 +36,6 @@
         <repository>
             <id>spigot-public</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
-        </repository>
-        <repository>
-            <id>jeff-media-gbr</id>
-            <url>https://repo.jeff-media.com/public/</url>
         </repository>
         <repository>
             <id>placeholderapi</id>
@@ -88,10 +78,6 @@
                 <version>3.6.0</version>
                 <configuration>
                     <relocations>
-                        <relocation>
-                            <pattern>com.jeff_media.jefflib</pattern>
-                            <shadedPattern>com.pseudosmp.PlayerBiomes.jefflib</shadedPattern>
-                        </relocation>
                         <relocation>
                             <pattern>org.bstats</pattern>
                             <shadedPattern>com.pseudosmp.PlayerBiomes.bstats</shadedPattern>

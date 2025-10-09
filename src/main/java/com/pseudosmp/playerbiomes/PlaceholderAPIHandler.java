@@ -1,4 +1,4 @@
-package com.pseudosmp.PlayerBiomes;
+package com.pseudosmp.playerbiomes;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;

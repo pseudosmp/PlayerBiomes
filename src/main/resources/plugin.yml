@@ -1,6 +1,6 @@
 name: PlayerBiomes
 authors: [ Ilamparithi ]
-main: com.pseudosmp.PlayerBiomes.PlayerBiomes
+main: com.pseudosmp.playerbiomes.PlayerBiomes
 version: ${project.version}
 description: ${project.description}
 api-version: "1.16"

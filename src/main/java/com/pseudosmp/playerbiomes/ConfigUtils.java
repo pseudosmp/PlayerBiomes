@@ -1,4 +1,4 @@
-package com.pseudosmp.PlayerBiomes;
+package com.pseudosmp.playerbiomes;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
