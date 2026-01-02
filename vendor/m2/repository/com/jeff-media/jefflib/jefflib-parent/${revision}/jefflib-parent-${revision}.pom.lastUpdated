@@ -1,0 +1,14 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed Jan 29 22:47:49 IST 2025
+@default-placeholderapi-https\://repo.extendedclip.com/content/repositories/placeholderapi/.lastUpdated=1738170306912
+https\://hub.spigotmc.org/nexus/content/groups/public/.error=
+https\://hub.spigotmc.org/nexus/content/groups/public/.lastUpdated=1738170305628
+https\://hub.spigotmc.org/nexus/content/repositories/snapshots/.error=
+https\://hub.spigotmc.org/nexus/content/repositories/snapshots/.lastUpdated=1738170307242
+https\://repo.extendedclip.com/content/repositories/placeholderapi/.error=Could not transfer artifact com.jeff-media.jefflib\:jefflib-parent\:pom\:${revision} from/to placeholderapi (https\://repo.extendedclip.com/content/repositories/placeholderapi/)\: ClientProtocolException
+https\://repo.jeff-media.com/\#/public/.error=
+https\://repo.jeff-media.com/\#/public/.lastUpdated=1738171069661
+https\://repo.jeff-media.com/public/.error=
+https\://repo.jeff-media.com/public/.lastUpdated=1738170305817
+https\://repo.maven.apache.org/maven2/.error=
+https\://repo.maven.apache.org/maven2/.lastUpdated=1738170307676

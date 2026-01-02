@@ -1,0 +1,11 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed Jan 29 21:13:09 IST 2025
+https\://hub.spigotmc.org/nexus/content/groups/public/.error=
+https\://hub.spigotmc.org/nexus/content/groups/public/.lastUpdated=1738165387509
+https\://hub.spigotmc.org/nexus/content/repositories/snapshots/.error=
+https\://hub.spigotmc.org/nexus/content/repositories/snapshots/.lastUpdated=1738165389399
+https\://repo.extendedclip.com/content/repositories/placeholderapi/.error=
+https\://repo.extendedclip.com/content/repositories/placeholderapi/.lastUpdated=1738165389092
+https\://repo.jeff-media.com/public/.error=
+https\://repo.jeff-media.com/public/.lastUpdated=1738165388347
+https\://repo.maven.apache.org/maven2/.lastUpdated=1738165389741

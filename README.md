@@ -1,4 +1,7 @@
-# [PlayerBiomes on SpigotMC](https://www.spigotmc.org/resources/playerbiomes-1-16-x-1-19-x.108144/)
+# PlayerBiomes
+
+![SpigotMC Downloads](https://img.shields.io/spiget/downloads/108144?style=for-the-badge&logo=spigotmc&link=https%3A%2F%2Fwww.spigotmc.org%2Fresources%2Fplayerbiomes-1-16-2.108144)&ensp;![Modrinth Downloads](https://img.shields.io/modrinth/dt/playerbiomes?style=for-the-badge&logo=modrinth&link=https%3A%2F%2Fmodrinth.com%2Fplugin%2Fplayerbiomes) 
+
 - Use **/whatbiome** to find what biome you are in
 - Send **player-specific translations** of biome names to players
 - Get the player's biome name formatted in various ways using **PlaceholderAPI placeholders**
