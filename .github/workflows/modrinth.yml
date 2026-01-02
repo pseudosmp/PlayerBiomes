@@ -6,7 +6,7 @@ on:
 
 jobs:
   Modrinth:
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-latest
     steps:
     - name: Publish to Modrinth
       uses: cloudnode-pro/modrinth-publish@v2.1.7
