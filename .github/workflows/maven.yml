@@ -34,4 +34,4 @@ jobs:
       with:
         name: PlayerBiomes
         path: ./target/PlayerBiomes.jar
-        compression-level: 0
+        archive: false
