@@ -10,7 +10,6 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -154,7 +153,8 @@ public class ConfigUtils {
                     .replace("{locale}", locale);
             try {
                 plugin.getLogger().info("Downloading locale file: " + urlString);
-                try (BufferedInputStream in = new BufferedInputStream(new URL(urlString).openStream());
+                try (BufferedInputStream in = new BufferedInputStream(
+                        java.net.URI.create(urlString).toURL().openStream());
                         FileOutputStream fileOutputStream = new FileOutputStream(tmpFile)) {
                     byte[] dataBuffer = new byte[1024];
                     int bytesRead;
