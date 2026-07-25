@@ -36,6 +36,7 @@ public class PlayerBiomes extends JavaPlugin {
         }
 
         this.saveDefaultConfig();
+        this.getServer().getPluginManager().registerEvents(new PlayerBiomeCacheListener(), this);
         this.getCommand("whatbiome").setExecutor(new WhatBiomeCommand(this));
         this.getCommand("playerbiomes").setExecutor(new PlayerBiomesCommand(this));
         getLogger().info("/whatbiome is now a valid question! (PlayerBiomes has been enabled)");

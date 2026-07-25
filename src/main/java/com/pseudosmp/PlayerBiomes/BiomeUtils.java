@@ -1,10 +1,17 @@
 package com.pseudosmp.PlayerBiomes;
 
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
+
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class BiomeUtils {
     private static Boolean biomeInterfaceCache = null;
+    private static final Map<UUID, NamespacedKey> playerBiomeCache = new ConcurrentHashMap<>();
 
     private static ConfigUtils getConfig() {
         return PlayerBiomes.config;
@@ -22,14 +29,28 @@ public class BiomeUtils {
         }
     }
 
-    public static NamespacedKey getPlayerBiomeKey(OfflinePlayer player) {
-        if (player == null || player.getPlayer() == null) {
-            return NamespacedKey.minecraft("unknown");
+    public static NamespacedKey updatePlayerBiomeCache(Player player) {
+        if (player == null) return NamespacedKey.minecraft("unknown");
+
+        NamespacedKey key = fetchBiomeKeyFromWorld(player);
+        if (key != null && !key.getKey().equals("unknown")) {
+            playerBiomeCache.put(player.getUniqueId(), key);
         }
+        return key;
+    }
+
+    public static void clearPlayerBiomeCache(Player player) {
+        if (player != null) {
+            playerBiomeCache.remove(player.getUniqueId());
+        }
+    }
+
+    private static NamespacedKey fetchBiomeKeyFromWorld(Player player) {
+        if (player == null) return NamespacedKey.minecraft("unknown");
 
         if (isModernBiomeAPI()) {
             try {
-                Object block = player.getPlayer().getLocation().getBlock();
+                Object block = player.getLocation().getBlock();
                 Object biome = block.getClass()
                         .getMethod("getBiome")
                         .invoke(block);
@@ -41,12 +62,38 @@ public class BiomeUtils {
             }
         } else {
             try {
-                // Use the original jefflib BiomeUtils for legacy
-                return com.jeff_media.jefflib.BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation());
+                return com.jeff_media.jefflib.BiomeUtils.getBiomeNamespacedKey(player.getLocation());
             } catch (Throwable t) {
                 return NamespacedKey.minecraft("unknown");
             }
         }
+    }
+
+    public static NamespacedKey getPlayerBiomeKey(OfflinePlayer player) {
+        if (player == null) {
+            return NamespacedKey.minecraft("unknown");
+        }
+
+        UUID uuid = player.getUniqueId();
+
+        // On Folia and Paper, world block access off primary/region threads throws thread check exceptions.
+        // If called asynchronously, return the cached biome for this player.
+        if (!Bukkit.isPrimaryThread()) {
+            return playerBiomeCache.getOrDefault(uuid, NamespacedKey.minecraft("unknown"));
+        }
+
+        Player onlinePlayer = player.getPlayer();
+        if (onlinePlayer == null) {
+            return playerBiomeCache.getOrDefault(uuid, NamespacedKey.minecraft("unknown"));
+        }
+
+        NamespacedKey key = fetchBiomeKeyFromWorld(onlinePlayer);
+        if (key != null && !key.getKey().equals("unknown")) {
+            playerBiomeCache.put(uuid, key);
+            return key;
+        }
+
+        return playerBiomeCache.getOrDefault(uuid, NamespacedKey.minecraft("unknown"));
     }
 
     public static String getBiomeFormatted(OfflinePlayer player) {
