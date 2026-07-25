@@ -6,7 +6,9 @@ import org.bukkit.OfflinePlayer;
 public class BiomeUtils {
     private static Boolean biomeInterfaceCache = null;
 
-    private static ConfigUtils config = PlayerBiomes.config;
+    private static ConfigUtils getConfig() {
+        return PlayerBiomes.config;
+    }
 
     public static boolean isModernBiomeAPI() {
         if (biomeInterfaceCache != null) return biomeInterfaceCache;
@@ -21,21 +23,29 @@ public class BiomeUtils {
     }
 
     public static NamespacedKey getPlayerBiomeKey(OfflinePlayer player) {
+        if (player == null || player.getPlayer() == null) {
+            return NamespacedKey.minecraft("unknown");
+        }
+
         if (isModernBiomeAPI()) {
             try {
-                Object biome = player.getPlayer().getLocation().getBlock().getClass()
+                Object block = player.getPlayer().getLocation().getBlock();
+                Object biome = block.getClass()
                         .getMethod("getBiome")
-                        .invoke(player.getPlayer().getLocation().getBlock());
+                        .invoke(block);
 
                 Object namespacedKeyObj = biome.getClass().getMethod("getKey").invoke(biome);
                 return (NamespacedKey) namespacedKeyObj;
             } catch (Throwable t) {
-                t.printStackTrace();
                 return NamespacedKey.minecraft("unknown");
             }
         } else {
-            // Use the original jefflib BiomeUtils for legacy
-            return com.jeff_media.jefflib.BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation());
+            try {
+                // Use the original jefflib BiomeUtils for legacy
+                return com.jeff_media.jefflib.BiomeUtils.getBiomeNamespacedKey(player.getPlayer().getLocation());
+            } catch (Throwable t) {
+                return NamespacedKey.minecraft("unknown");
+            }
         }
     }
 
@@ -43,15 +53,16 @@ public class BiomeUtils {
         NamespacedKey key = getPlayerBiomeKey(player);
         String biomeNamespace = key.getNamespace();
         String locale;
-        if (config.forceServerLocale) {
+        ConfigUtils config = getConfig();
+        if (config != null && config.forceServerLocale) {
             locale = config.serverLocale;
         } else {
             locale = player.getPlayer() != null ? player.getPlayer().getLocale() : "en_us";
         }
-        if (config.localeCaseInsensitive) {
+        if (config != null && config.localeCaseInsensitive) {
             locale = locale.toLowerCase();
         }
-        String translation = config.getBiomeTranslation(key, locale);
+        String translation = config != null ? config.getBiomeTranslation(key, locale) : null;
         if (translation != null) {
             return biomeNamespace.substring(0, 1).toUpperCase() + biomeNamespace.substring(1) + ": " + translation;
         } else {

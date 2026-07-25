@@ -1,7 +1,6 @@
 package com.pseudosmp.PlayerBiomes;
 
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -29,7 +28,7 @@ public class ConfigUtils {
     // Persistent config values
     public String downloadUrl;
     public String serverLocale;
-    public boolean bstatsConsent; 
+    public boolean bstatsConsent;
     public boolean forceServerLocale;
     public boolean localeCaseInsensitive;
     public boolean autoDownloadLocale;
@@ -63,13 +62,12 @@ public class ConfigUtils {
             String user_whatbiome = getMessage("user_whatbiome");
             String defaultMessage = "[PlayerBiomes] You are currently in the biome - {biome_formatted}.";
             // Warn if no placeholders found
-            if (
-                !user_whatbiome.contains("{biome_formatted}") &&
-                !user_whatbiome.contains("{biome_name}") &&
-                !user_whatbiome.contains("{biome_namespace}") &&
-                !user_whatbiome.contains("{biome_raw}")
-            ) {
-                plugin.getLogger().warning("No biome placeholder found in the player message. Please read instructions in the config properly!");
+            if (!user_whatbiome.contains("{biome_formatted}") &&
+                    !user_whatbiome.contains("{biome_name}") &&
+                    !user_whatbiome.contains("{biome_namespace}") &&
+                    !user_whatbiome.contains("{biome_raw}")) {
+                plugin.getLogger().warning(
+                        "No biome placeholder found in the player message. Please read instructions in the config properly!");
                 // change messages.user_whatbiome to default
                 messages.put("user_whatbiome", defaultMessage);
             }
@@ -95,10 +93,9 @@ public class ConfigUtils {
                 InputStream in = plugin.getResource("config.yml");
                 if (in != null) {
                     java.nio.file.Files.copy(
-                        in,
-                        newConfigFile.toPath(),
-                        java.nio.file.StandardCopyOption.REPLACE_EXISTING
-                    );
+                            in,
+                            newConfigFile.toPath(),
+                            java.nio.file.StandardCopyOption.REPLACE_EXISTING);
                     in.close();
                     logger.warning("You can find the latest config.yml in the plugin's folder as \"config.new.yml\".");
                 } else {
@@ -106,7 +103,8 @@ public class ConfigUtils {
                 }
             } catch (Exception e) {
                 logger.warning("Failed to save config.new.yml: " + e.getMessage());
-                logger.warning("Manually update by checking https://github.com/pseudosmp/PlayerBiomes/blob/main/src/main/resources/config.yml");
+                logger.warning(
+                        "Manually update by checking https://github.com/pseudosmp/PlayerBiomes/blob/main/src/main/resources/config.yml");
             }
         }
     }
@@ -124,15 +122,18 @@ public class ConfigUtils {
         for (int i = 0; i < len; i++) {
             int currPart = i < curr.length ? Integer.parseInt(curr[i]) : 0;
             int targetPart = i < target.length ? Integer.parseInt(target[i]) : 0;
-            if (currPart < targetPart) return true;
-            if (currPart > targetPart) return false;
+            if (currPart < targetPart)
+                return true;
+            if (currPart > targetPart)
+                return false;
         }
         return false;
     }
 
     public void downloadLocaleFile(String locale) {
         File langDir = new File(plugin.getDataFolder(), "lang");
-        if (!langDir.exists()) langDir.mkdirs();
+        if (!langDir.exists())
+            langDir.mkdirs();
         File localeFile = new File(langDir, locale + ".json");
         File tmpFile = new File(langDir, locale + ".json.tmp");
 
@@ -143,26 +144,29 @@ public class ConfigUtils {
             localeDownloadInProgress.put(locale, true);
         }
 
-        Bukkit.getScheduler().runTaskAsynchronously((Plugin) plugin, () -> {
+        SchedulerUtils.runAsync(plugin, () -> {
             String urlTemplate = PlayerBiomes.config.downloadUrl;
             String version = plugin.getServer().getBukkitVersion().split("-")[0];
-            if (version.endsWith(".0")) version = version.substring(0, version.length() - 2);
+            if (version.endsWith(".0"))
+                version = version.substring(0, version.length() - 2);
             String urlString = urlTemplate
                     .replace("{version}", version)
                     .replace("{locale}", locale);
             try {
                 plugin.getLogger().info("Downloading locale file: " + urlString);
                 try (BufferedInputStream in = new BufferedInputStream(new URL(urlString).openStream());
-                     FileOutputStream fileOutputStream = new FileOutputStream(tmpFile)) {
+                        FileOutputStream fileOutputStream = new FileOutputStream(tmpFile)) {
                     byte[] dataBuffer = new byte[1024];
                     int bytesRead;
                     while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
                         fileOutputStream.write(dataBuffer, 0, bytesRead);
                     }
                     // Move .tmp to .json
-                    if (localeFile.exists()) localeFile.delete();
+                    if (localeFile.exists())
+                        localeFile.delete();
                     if (!tmpFile.renameTo(localeFile)) {
-                        plugin.getLogger().warning("Failed to rename " + tmpFile.getName() + " to " + localeFile.getName());
+                        plugin.getLogger()
+                                .warning("Failed to rename " + tmpFile.getName() + " to " + localeFile.getName());
                         plugin.getLogger().warning("Please rename it manually!");
                         tmpFile.delete();
                     } else {
@@ -174,7 +178,8 @@ public class ConfigUtils {
                 plugin.getLogger().warning("Failed to download locale file: " + urlString);
                 e.printStackTrace();
                 plugin.getLogger().warning("Place the file in plugins/PlayerBiomes/lang/ manually!");
-                if (tmpFile.exists()) tmpFile.delete();
+                if (tmpFile.exists())
+                    tmpFile.delete();
             } finally {
                 localeDownloadInProgress.remove(locale);
             }
@@ -191,9 +196,11 @@ public class ConfigUtils {
         }
         Map<String, String> translations = localeCache.computeIfAbsent(locale, l -> {
             File file = new File(plugin.getDataFolder(), "lang/" + l + ".json");
-            if (!file.exists()) return null;
+            if (!file.exists())
+                return null;
             try (FileReader reader = new FileReader(file)) {
-                return new Gson().fromJson(reader, new TypeToken<Map<String, String>>(){}.getType());
+                return new Gson().fromJson(reader, new TypeToken<Map<String, String>>() {
+                }.getType());
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;

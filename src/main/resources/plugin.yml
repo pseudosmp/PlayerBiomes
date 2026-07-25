@@ -4,6 +4,7 @@ main: com.pseudosmp.PlayerBiomes.PlayerBiomes
 version: ${project.version}
 description: ${project.description}
 api-version: "1.16"
+folia-supported: true
 commands:
   whatbiome:
     description: Displays the name of the biome the player is currently in.
